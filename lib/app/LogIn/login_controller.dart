@@ -20,16 +20,46 @@ class LoginController extends GetxController {
 
   RxBool isPasswordHidden = true.obs;
 
-  // //Confetti Animation
-  // var isPlaying = false.obs;
-  // late ConfettiController confettiController;
+
 
   @override
   void onInit() {
-    //Confetti Animation
-    // confettiController = ConfettiController();
     rememberMe.value = getStorage.read('rememberMe') ?? false;
     super.onInit();
+  }
+
+  String? emailValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'This field is required';
+    }
+    // Check if the entered email has the right format
+    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+      return 'Please enter a valid email address';
+    }
+    // Return null if the entered email is valid
+    return null;
+  }
+
+  String? passwordValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'This field is required';
+    }
+    if (value.trim().length < 8) {
+      return 'Password must be at least 8 characters in length';
+    }
+    // Return null if the entered password is valid
+    return null;
+  }
+
+  String? mobilePhoneValidator(String? value) {
+    if (value == null || value.trim().isEmpty) {
+      return 'This field is required';
+    }
+    if (value.trim().length < 9) {
+      return 'Mobile Phone must be at least 9 characters in length';
+    }
+    // Return null if the entered password is valid
+    return null;
   }
 
   void toggleRememberMe(bool value) {
@@ -38,45 +68,33 @@ class LoginController extends GetxController {
   }
 
   login() {
-    getStorage.write("id", 1);
-    getStorage.write("name", "Ripples Code");
+    final isValid=signInFormKey.currentState!.validate();
+    if(!isValid){
+      return;
+    }
+    signInFormKey.currentState!.save();
+    //getStorage.write("id", 1);
+    //getStorage.write("name", "Ripples Code");
     // Get.offAllNamed(Routes.HOME);
   }
 
   @override
   void onClose() {
-    //Confetti Animation
-    // confettiController.dispose();
 
-    //emailController.dispose();
-    //passwordController.dispose();
+
     super.onClose();
   }
 
-  //Confetti Animation
-  // startConfettiAnimation() {
-  //   if (confettiController.state == ConfettiControllerState.playing) {
-  //     isPlaying.value = false;
-  //     confettiController.stop();
-  //   } else {
-  //     isPlaying.value = true;
-  //     confettiController.play();
-  //   }
-  // }
+
   String? validator(String? value) {
-    log('validatoooor');
+    log('validator');
 
     if (value != null && value.isEmpty) {
       return 'Please this field must be filled';
     }
     return null;
   }
-/*
-  void changeCheckBox() async{
-  changeCheckBox(!(changeCheckBox.value));
- // String?test=await getStorage.read('token');
 
-  }*/
 /*
   Future<void> login() async {
     log('${emailController.text}, ${passwordController.text}');

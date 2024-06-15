@@ -57,7 +57,7 @@ class LogInScreen extends GetView<LoginController> {
                           textInputType: TextInputType.emailAddress,
                           labelText: 'Email',
                           hintText: 'Enter your email',
-                          validate: (String) {},
+                          validate:(value) {return controller.emailValidator(controller.emailController.text);},
                           suffixIcon: Icon(
                             Icons.edit,
                             color: Themes.iconColorAtTextFormField,
@@ -132,7 +132,7 @@ class LogInScreen extends GetView<LoginController> {
                                             content: const FulsDialog(),
                                           );
                                         }
-                                      : () {
+                                      : () {controller.login();/*
                                           buttonAudio("song_assets/tada.mp3");
                                           Get.lazyPut(
                                               () => SuccessController());
@@ -140,7 +140,7 @@ class LogInScreen extends GetView<LoginController> {
                                             backgroundColor:
                                                 Themes.backGroundDialogColor,
                                             const SuccessBottomSheet(),
-                                          );
+                                          );*/
                                         },
                                   text: 'Log in',
                                   borderRadiusCircular: 50,
@@ -330,8 +330,7 @@ class LogInScreen extends GetView<LoginController> {
                             labelText: 'Password',
                             hintText: 'Enter your password',
                             validate: (String) {},
-                            // isPassword:controller.isPasswordHidden.value==true?true.obs:false.obs,
-                            //  suffix_icon:controller.isPasswordHidden.value? Icons.visibility_off:Icons.visibility,
+
                           )
                               .animate()
                               .shimmer(duration: const Duration(seconds: 1))
@@ -472,27 +471,3 @@ class LogInScreen extends GetView<LoginController> {
   }
 }
 
-// class _OpenContainerWrapper extends StatelessWidget {
-//   const _OpenContainerWrapper({
-//     required this.closedBuilder,
-//     required this.transitionType,
-//   });
-//
-//   final CloseContainerBuilder closedBuilder;
-//   final ContainerTransitionType transitionType;
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return OpenContainer<bool>(
-//       transitionType: transitionType,
-//       openBuilder: (BuildContext context, VoidCallback _) {
-//         return const SignUp();
-//       },
-//       closedElevation: 0.0,
-//       openColor: Colors.transparent,
-//       closedColor: Colors.transparent,
-//       tappable: false,
-//       closedBuilder: closedBuilder,
-//     );
-//   }
-// }

@@ -8,14 +8,9 @@ import 'package:image_picker/image_picker.dart';
 class SignUpController extends GetxController {
   final getStorage = GetStorage();
 
-
-
-
-
-  bool isLoading=false;
+  bool isLoading = false;
 
   // File?fileToDisplay;
-
 
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
@@ -34,11 +29,11 @@ class SignUpController extends GetxController {
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
 
-
   //image picker
 
   RxString imagePath = ''.obs;
   var selectedImageSize = ''.obs;
+
 //File ? selectedImage;
 
 /*
@@ -97,7 +92,7 @@ class SignUpController extends GetxController {
     // if(fieldLostFocus == usernameController.hashCode)
     log('usernameValidator-----');
     if (value == null || value.trim().isEmpty) {
-      return 'This field is required';
+      return 'username field is required';
     }
     if (value.trim().length < 4) {
       return 'Username must be at least 4 characters in length';
@@ -108,11 +103,11 @@ class SignUpController extends GetxController {
 
   String? emailValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'This field is required';
+      return 'email field is required';
     }
     // Check if the entered email has the right format
     if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-      return 'Please enter a valid email address';
+      return 'Please enter a valid email';
     }
     // Return null if the entered email is valid
     return null;
@@ -120,10 +115,10 @@ class SignUpController extends GetxController {
 
   String? passwordValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'This field is required';
+      return 'password field is required';
     }
-    if (value.trim().length < 3) {
-      return 'Password must be at least 8 characters in length';
+    if (value.trim().length < 9) {
+      return 'Password must be at least 9 characters in length';
     }
     // Return null if the entered password is valid
     return null;
@@ -131,7 +126,7 @@ class SignUpController extends GetxController {
 
   String? mobilePhoneValidator(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'This field is required';
+      return 'mobile phone field is required';
     }
     if (value.trim().length < 9) {
       return 'Mobile Phone must be at least 9 characters in length';
@@ -142,7 +137,7 @@ class SignUpController extends GetxController {
 
   String? confirmPasswordValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return 'This field is required';
+      return 'confirm password field is required';
     }
     log('${value}--${passwordController.value.text}');
     if (value != passwordController.value.text) {
@@ -193,79 +188,14 @@ class SignUpController extends GetxController {
     }
   }*/
 
- /* Future getImage(ImageSource imageSource) async {
-    // final ImagePicker _picker=ImagePicker();
-    // final image=await _picker.pickImage(source: ImageSource.gallery);
-    // if(image!=null){
-    // selectedImagePath.value=image.path.toString();
-    // }
-    // print('No Images Selected');
-    final pickedFile = await ImagePicker().getImage(source: imageSource);
-    if (pickedFile != null) {
-      selectedImagePath.value=pickedFile.path;
-      selectedImageSize.value=((File(selectedImagePath.value)).lengthSync()/1024/1024).toStringAsFixed(2)+" Mb";
-    } else {
-      Get.Snackbar('Error', 'No image selected',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.lightBlue,
-          colorText: Colors.pink);
+  Future getImage() async {
+    final ImagePicker picker = ImagePicker();
+    final image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      getStorage.save();
+      imagePath.value = image.path.toString();
+      getStorage.write('profile image', image.path.toString());
     }
-  }*/
-// Future pickImageFromGallery()async{
-//  final File selectedImage= (await ImagePicker().pickImage(source: ImageSource.gallery)) as File;
-//  // selectedImage=File(returnedImage!.path);
-// }
-
-  // File? _image;
-  // Future getImage(ImageSource source) async {
-  //
-  //     final image = await ImagePicker().pickImage(source: source);
-  //     if (image == null) return;
-  //     final imageTemporary = File(image.path as List<Object>);
-  //     final imagePermanent = await saveFilePermanently(image.path);
-  //     // setState(() {
-  //     //   //  this._image = imagePermanent;
-  //     // });
-  //
-  // }
-  // Future<File> saveFilePermanently(String imagePath) async {
-  //   final directory = await getApplicationDocumentsDirectory();
-  //   final name = basename(imagePath);
-  //   final image = File('${directory.path}/$name');
-  //   return File(imagePath).copy(image.path);
-  // }
-  // void pickFile()async{
-  //
-  //
-  //     result =await FilePicker.platform.pickFiles(type: FileType.image,allowMultiple: true);
-  //
-  //     if(result!=null){
-  //       //send attachments to the database
-  //       _fileName=result!.files.first.name;
-  //       pickedfile=result!.files.first;
-  //       filePath= result!.files.first.path!;
-  //     var  fileToDisplay11=File(filePath);
-  //       print("File name $result!.files.first.name");
-  //
-  //     }
-  //
-  //
-  // }
-  // void openImage() async {
-  //   FilePickerResult? resultFile = await FilePicker.platform.pickFiles(type: FileType.image);
-  //   if (resultFile != null) {
-  //      image = resultFile.files.first;
-  //      selectedImagePath=image.path.obs.value as RxString;
-  //     print('image name *********************************** ${image.name}');
-  //   } else {}
-  // }
-Future getImage()async{
-  final ImagePicker picker =ImagePicker();
-  final image =await picker.pickImage(source:ImageSource.gallery);
-
-  if(image!=null){
-    getStorage.save();
-    imagePath.value=image.path.toString(); getStorage.write('profile image',image.path.toString() );
   }
-}
 }

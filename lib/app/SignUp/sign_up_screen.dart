@@ -50,7 +50,8 @@ class SignUpScreen extends GetView<SignUpController> {
                         ),
                         child: Obx(() => GestureDetector(
                               child: CircleAvatar(
-                                backgroundColor: Colors.white,
+                                backgroundColor:
+                                    Colors.transparent.withOpacity(0),
                                 radius: 5.25.h,
                                 backgroundImage: controller.imagePath.isNotEmpty
                                     ? FileImage(File(controller.getStorage
@@ -61,7 +62,6 @@ class SignUpScreen extends GetView<SignUpController> {
                                     : SvgPicture.asset(
                                         'assets/images/camera.svg',
                                         color: Themes.fontColor1,
-
                                         fit: BoxFit.fill,
                                       ),
                               ),
@@ -245,7 +245,88 @@ class SignUpScreen extends GetView<SignUpController> {
                       CustomTextButton(
                               onSubmit: () {
                                 buttonAudio("song_assets/bubble.mp3");
-                                Get.toNamed(Routes.AUTHENTICATED);
+                                String? emailError = controller.emailValidator(
+                                    controller.emailController.text);
+                                String? phoneError =
+                                    controller.mobilePhoneValidator(
+                                        controller.mobileNumberController.text);
+                                String? usernameError =
+                                    controller.usernameValidator(
+                                        controller.userNameController.text);
+                                String? passwordError =
+                                    controller.passwordValidator(
+                                        controller.passwordController.text);
+                                String? confirmPasswordError = controller
+                                    .confirmPasswordValidator(controller
+                                        .confirmPasswordController.text);
+                                if (emailError != null ||
+                                    phoneError != null ||
+                                    usernameError != null ||
+                                    passwordError != null ||
+                                    confirmPasswordError != null) {
+                                  Get.defaultDialog(
+                                    backgroundColor: Themes.backGroundDialogColor,
+                                      title: 'Error',
+                                      content: Column(
+                                        children: [
+                                          usernameError != null
+                                              ? Text(
+                                                  '${usernameError}',
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 14.sp,
+                                                    color:
+                                                        Themes.darkGreenColor,
+                                                  ),
+                                                )
+                                              : SizedBox(
+                                                  height: 0,
+                                                ),
+                                          emailError != null
+                                              ? Text('${emailError}', textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color:
+                                              Themes.darkGreenColor,
+                                            ),)
+                                              : SizedBox(
+                                                  height: 0,
+                                                ),
+                                          phoneError != null
+                                              ? Text('${phoneError}', textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color:
+                                              Themes.darkGreenColor,
+                                            ),)
+                                              : SizedBox(
+                                                  height: 0,
+                                                ),
+                                          passwordError != null
+                                              ? Text('${passwordError}', textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color:
+                                              Themes.darkGreenColor,
+                                            ),)
+                                              : SizedBox(
+                                                  height: 0,
+                                                ),
+                                          confirmPasswordError != null
+                                              ? Text('${confirmPasswordError}', textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 14.sp,
+                                              color:
+                                              Themes.darkGreenColor,
+                                            ),)
+                                              : SizedBox(
+                                                  height: 0,
+                                                ),
+                                        ],
+                                      ));
+                                } else {
+                                  Get.toNamed(Routes.AUTHENTICATED);
+                                }
                               } /* async {
                       if (controller.signupFormKey.currentState!.validate()) {
                         // LoadingOverlay.show(message: 'Registering...');
@@ -351,26 +432,26 @@ class SignUpScreen extends GetView<SignUpController> {
                           shape: BoxShape.circle,
                         ),
                         child: Obx(() => GestureDetector(
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            radius: 5.25.h,
-                            backgroundImage: controller.imagePath.isNotEmpty
-                                ? FileImage(File(controller.getStorage
-                                .read('profile image')))
-                                : null,
-                            child: controller.imagePath.isNotEmpty
-                                ? null
-                                : SvgPicture.asset(
-                              'assets/images/camera.svg',
-                              color: Themes.fontColor1,
-
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                          onTap: () {
-                            controller.getImage();
-                          },
-                        )),
+                              child: CircleAvatar(
+                                backgroundColor:
+                                    Colors.transparent.withOpacity(0),
+                                radius: 5.25.h,
+                                backgroundImage: controller.imagePath.isNotEmpty
+                                    ? FileImage(File(controller.getStorage
+                                        .read('profile image')))
+                                    : null,
+                                child: controller.imagePath.isNotEmpty
+                                    ? null
+                                    : SvgPicture.asset(
+                                        'assets/images/camera.svg',
+                                        color: Themes.fontColor1,
+                                        fit: BoxFit.fill,
+                                      ),
+                              ),
+                              onTap: () {
+                                controller.getImage();
+                              },
+                            )),
                       ),
                       SizedBox(
                         height: 6.4.w,
@@ -548,10 +629,91 @@ class SignUpScreen extends GetView<SignUpController> {
                         height: 4.5.w,
                       ),
                       CustomTextButton(
-                              onSubmit: () {
-                                buttonAudio("song_assets/bubble.mp3");
-                                Get.toNamed(Routes.AUTHENTICATED);
-                              } /* async {
+                          onSubmit: () {
+                            buttonAudio("song_assets/bubble.mp3");
+                            String? emailError = controller.emailValidator(
+                                controller.emailController.text);
+                            String? phoneError =
+                            controller.mobilePhoneValidator(
+                                controller.mobileNumberController.text);
+                            String? usernameError =
+                            controller.usernameValidator(
+                                controller.userNameController.text);
+                            String? passwordError =
+                            controller.passwordValidator(
+                                controller.passwordController.text);
+                            String? confirmPasswordError = controller
+                                .confirmPasswordValidator(controller
+                                .confirmPasswordController.text);
+                            if (emailError != null ||
+                                phoneError != null ||
+                                usernameError != null ||
+                                passwordError != null ||
+                                confirmPasswordError != null) {
+                              Get.defaultDialog(
+                                  backgroundColor: Themes.backGroundDialogColor,
+                                  title: 'Error',
+                                  content: Column(
+                                    children: [
+                                      usernameError != null
+                                          ? Text(
+                                        '${usernameError}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color:
+                                          Themes.darkGreenColor,
+                                        ),
+                                      )
+                                          : SizedBox(
+                                        height: 0,
+                                      ),
+                                      emailError != null
+                                          ? Text('${emailError}', textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color:
+                                          Themes.darkGreenColor,
+                                        ),)
+                                          : SizedBox(
+                                        height: 0,
+                                      ),
+                                      phoneError != null
+                                          ? Text('${phoneError}', textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color:
+                                          Themes.darkGreenColor,
+                                        ),)
+                                          : SizedBox(
+                                        height: 0,
+                                      ),
+                                      passwordError != null
+                                          ? Text('${passwordError}', textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color:
+                                          Themes.darkGreenColor,
+                                        ),)
+                                          : SizedBox(
+                                        height: 0,
+                                      ),
+                                      confirmPasswordError != null
+                                          ? Text('${confirmPasswordError}', textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: 14.sp,
+                                          color:
+                                          Themes.darkGreenColor,
+                                        ),)
+                                          : SizedBox(
+                                        height: 0,
+                                      ),
+                                    ],
+                                  ));
+                            } else {
+                              Get.toNamed(Routes.AUTHENTICATED);
+                            }
+                          } /* async {
                       if (controller.signupFormKey.currentState!.validate()) {
                         // LoadingOverlay.show(message: 'Registering...');
                         print('Registering');
