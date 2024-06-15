@@ -1,13 +1,17 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:sizer/sizer.dart';
 import 'package:temp_task2/app/Fuls/fuls_dialog.dart';
-import 'package:temp_task2/app/Success/success_dialog.dart';
+import 'package:temp_task2/app/Success/success_bottom_sheet.dart';
+import 'package:temp_task2/app/Success/success_controller.dart';
 import 'package:temp_task2/routes/app_routes.dart';
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
 import '../../core/components/custom_text_form_field.dart';
+import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
 import 'login_controller.dart';
@@ -17,6 +21,7 @@ class LogInScreen extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(LoginController());
     Orientation deviceOrientation =
         getScreenOrientation(MediaQuery.of(context));
     return Scaffold(
@@ -57,7 +62,12 @@ class LogInScreen extends GetView<LoginController> {
                             Icons.edit,
                             color: Themes.iconColorAtTextFormField,
                           ),
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                         SizedBox(
                           height: 2.4.h,
                         ),
@@ -70,7 +80,12 @@ class LogInScreen extends GetView<LoginController> {
                           hintText: 'Enter your mobile phone',
                           validate: (String) {},
                           //  suffix_icon: Icons.cancel,
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                         SizedBox(
                           height: 2.4.h,
                         ),
@@ -85,6 +100,7 @@ class LogInScreen extends GetView<LoginController> {
                                 color: Themes.iconColorAtTextFormField,
                               ),
                               onTap: () {
+                                buttonAudio("song_assets/bubble.mp3");
                                 controller.isPasswordHidden.value =
                                     !controller.isPasswordHidden.value;
                               },
@@ -94,41 +110,53 @@ class LogInScreen extends GetView<LoginController> {
                             labelText: 'Password',
                             hintText: 'Enter your password',
                             validate: (String) {},
-                          ),
+                          )
+                              .animate()
+                              .shimmer(duration: const Duration(seconds: 1))
+                              .fadeIn(curve: Curves.easeOut)
+                              .then()
+                              .flip(),
                         ),
                         SizedBox(
                           height: 2.4.h,
                         ),
                         Obx(
                           () => CustomTextButton(
-                              onSubmit: controller.rememberMe.value == false
-                                  ? () {
-                                      Get.defaultDialog(
-                                        backgroundColor:
-                                            Themes.backGroundDialogColor,
-                                        title: '',
-                                        content: const FulsDialog(),
-                                      );
-                                    }
-                                  : () {
-                                      Get.bottomSheet(
-                                        backgroundColor:
-                                            Themes.backGroundDialogColor,
-                                        const SuccessScreen(),
-                                      );
-                                    },
-                              text: 'Log in',
-                              border_radius_circular: 50,
-                              width: 80.9.w,
-                              height: 4.4.h,
-                              font_size: 16.sp,
-                              font_type: 'Montaga',
-                              font_weight: '400',
-                              line_height: 19.71,
-                              border_color: Themes.borderLogInButtonColor,
-                              font_color: Themes.darkGreenColor,
-                              button_color: Themes.logInButtonColor,
-                              hasColor: true),
+                                  onSubmit: controller.rememberMe.value == false
+                                      ? () {
+                                          buttonAudio("song_assets/error1.mp3");
+                                          Get.defaultDialog(
+                                            backgroundColor:
+                                                Themes.backGroundDialogColor,
+                                            title: '',
+                                            content: const FulsDialog(),
+                                          );
+                                        }
+                                      : () {
+                                          buttonAudio("song_assets/tada.mp3");
+                                          Get.lazyPut(
+                                              () => SuccessController());
+                                          Get.bottomSheet(
+                                            backgroundColor:
+                                                Themes.backGroundDialogColor,
+                                            const SuccessBottomSheet(),
+                                          );
+                                        },
+                                  text: 'Log in',
+                                  borderRadiusCircular: 50,
+                                  width: 80.9.w,
+                                  height: 4.4.h,
+                                  fontSize: 16.sp,
+                                  fontType: 'Montaga',
+                                  fontWeight: '400',
+                                  lineHeight: 19.71,
+                                  borderColor: Themes.borderLogInButtonColor,
+                                  fontColor: Themes.darkGreenColor,
+                                  buttonColor: Themes.logInButtonColor,
+                                  hasColor: true)
+                              .animate()
+                              .shimmer(duration: const Duration(seconds: 1))
+                              .slideX(),
                         ),
                         SizedBox(
                           width: 80.9.w,
@@ -142,7 +170,6 @@ class LogInScreen extends GetView<LoginController> {
                                     Obx(
                                       () => RoundCheckBox(
                                         size: 15.sp,
-
                                         uncheckedColor: Colors.white,
                                         checkedWidget: Icon(
                                           Icons.check,
@@ -153,9 +180,9 @@ class LogInScreen extends GetView<LoginController> {
                                         checkedColor: Colors.white,
                                         isChecked: controller.rememberMe.value,
                                         onTap: (value) {
+                                          buttonAudio("song_assets/bubble.mp3");
                                           controller.toggleRememberMe(value!);
                                         },
-
                                         border: Border.all(
                                           width: 1.5.sp,
                                           color: Themes.rightIcon,
@@ -168,9 +195,10 @@ class LogInScreen extends GetView<LoginController> {
                                     CustomMontagaText(
                                         text: 'Remember me',
                                         size: 13.sp,
-                                        line_height: 16.02,
-                                        font_weight: '400',
-                                        color: Themes.darkGreenColor),
+                                        lineHeight: 16.02,
+                                        fontWeight: '400',
+                                        color: Themes.darkGreenColor,
+                                        textAlign: TextAlign.left),
                                   ],
                                 ),
                               ),
@@ -181,8 +209,8 @@ class LogInScreen extends GetView<LoginController> {
                                 child: CustomCabinText(
                                     text: 'Forget Password?',
                                     size: 11.sp,
-                                    line_height: 17.01,
-                                    font_weight: '400',
+                                    lineHeight: 17.01,
+                                    fontWeight: '400',
                                     color: Themes.darkGreenColor),
                               ),
                             ],
@@ -192,21 +220,28 @@ class LogInScreen extends GetView<LoginController> {
                           height: 15.8.h,
                         ),
                         CustomTextButton(
-                            onSubmit: () {
-                              Get.toNamed(Routes.SIGNUP);
-                            },
-                            text: 'Create new account',
-                            border_radius_circular: 50,
-                            width: 80.9.w,
-                            height: 4.4.h,
-                            font_size: 16.sp,
-                            font_type: 'Montaga',
-                            font_weight: '400',
-                            line_height: 19.71,
-                            border_color: Themes.borderButtonColor,
-                            font_color: Themes.darkGreenColor,
-                            button_color: Themes.createNewAccountButtonColor,
-                            hasColor: true),
+                                onSubmit: () {
+                                  buttonAudio("song_assets/bubble.mp3");
+
+                                  Get.toNamed(Routes.SIGNUP,
+                                      arguments: Transition.downToUp);
+                                },
+                                text: 'Create new account',
+                                borderRadiusCircular: 50,
+                                width: 80.9.w,
+                                height: 4.4.h,
+                                fontSize: 16.sp,
+                                fontType: 'Montaga',
+                                fontWeight: '400',
+                                lineHeight: 19.71,
+                                borderColor: Themes.borderButtonColor,
+                                fontColor: Themes.darkGreenColor,
+                                buttonColor:
+                                    Themes.createNewAccountButtonColor,
+                                hasColor: true)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .slideX(),
                       ],
                     ),
                   ),
@@ -246,7 +281,12 @@ class LogInScreen extends GetView<LoginController> {
                             Icons.edit,
                             color: Themes.iconColorAtTextFormField,
                           ),
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                         SizedBox(
                           height: 2.4.w,
                         ),
@@ -259,7 +299,12 @@ class LogInScreen extends GetView<LoginController> {
                           hintText: 'Enter your mobile phone',
                           validate: (String) {},
                           //  suffix_icon: Icons.cancel,
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                         SizedBox(
                           height: 2.4.w,
                         ),
@@ -274,6 +319,7 @@ class LogInScreen extends GetView<LoginController> {
                                 color: Themes.iconColorAtTextFormField,
                               ),
                               onTap: () {
+                                buttonAudio("song_assets/bubble.mp3");
                                 controller.isPasswordHidden.value =
                                     !controller.isPasswordHidden.value;
                               },
@@ -286,32 +332,53 @@ class LogInScreen extends GetView<LoginController> {
                             validate: (String) {},
                             // isPassword:controller.isPasswordHidden.value==true?true.obs:false.obs,
                             //  suffix_icon:controller.isPasswordHidden.value? Icons.visibility_off:Icons.visibility,
-                          ),
+                          )
+                              .animate()
+                              .shimmer(duration: const Duration(seconds: 1))
+                              .fadeIn(curve: Curves.easeOut)
+                              .then()
+                              .flip(),
                         ),
                         SizedBox(
                           height: 2.4.w,
                         ),
                         Obx(
                           () => CustomTextButton(
-                              onSubmit: controller.rememberMe.value == false
-                                  ? () {
-                                      const FulsDialog();
-                                    }
-                                  : () {
-                                      const SuccessScreen();
-                                    },
-                              text: 'Log in',
-                              border_radius_circular: 50,
-                              width: 80.9.h,
-                              height: 4.4.h,
-                              font_size: 16.sp,
-                              font_type: 'Montaga',
-                              font_weight: '400',
-                              line_height: 19.71,
-                              border_color: Themes.borderLogInButtonColor,
-                              font_color: Themes.darkGreenColor,
-                              button_color: Themes.logInButtonColor,
-                              hasColor: true),
+                                  onSubmit: controller.rememberMe.value == false
+                                      ? () {
+                                          buttonAudio("song_assets/error1.mp3");
+                                          Get.defaultDialog(
+                                            backgroundColor:
+                                                Themes.backGroundDialogColor,
+                                            title: '',
+                                            content: const FulsDialog(),
+                                          );
+                                        }
+                                      : () {
+                                          buttonAudio("song_assets/tada.mp3");
+                                          Get.lazyPut(
+                                              () => SuccessController());
+                                          Get.bottomSheet(
+                                            backgroundColor:
+                                                Themes.backGroundDialogColor,
+                                            const SuccessBottomSheet(),
+                                          );
+                                        },
+                                  text: 'Log in',
+                                  borderRadiusCircular: 50,
+                                  width: 80.9.h,
+                                  height: 4.4.h,
+                                  fontSize: 16.sp,
+                                  fontType: 'Montaga',
+                                  fontWeight: '400',
+                                  lineHeight: 19.71,
+                                  borderColor: Themes.borderLogInButtonColor,
+                                  fontColor: Themes.darkGreenColor,
+                                  buttonColor: Themes.logInButtonColor,
+                                  hasColor: true)
+                              .animate()
+                              .shimmer(duration: const Duration(seconds: 1))
+                              .slideX(),
                         ),
                         SizedBox(
                           width: 80.9.h,
@@ -336,6 +403,7 @@ class LogInScreen extends GetView<LoginController> {
                                       checkedColor: Colors.white,
                                       isChecked: controller.rememberMe.value,
                                       onTap: (value) {
+                                        buttonAudio("song_assets/bubble.mp3");
                                         controller.toggleRememberMe(value!);
                                       },
                                       border: Border.all(
@@ -350,9 +418,10 @@ class LogInScreen extends GetView<LoginController> {
                                   CustomMontagaText(
                                       text: 'Remember me',
                                       size: 13.sp,
-                                      line_height: 16.02,
-                                      font_weight: '400',
-                                      color: Themes.darkGreenColor),
+                                      lineHeight: 16.02,
+                                      fontWeight: '400',
+                                      color: Themes.darkGreenColor,
+                                      textAlign: TextAlign.left),
                                 ],
                               ),
                               MaterialButton(
@@ -362,8 +431,8 @@ class LogInScreen extends GetView<LoginController> {
                                 child: CustomCabinText(
                                     text: 'Forget Password?',
                                     size: 11.sp,
-                                    line_height: 17.01,
-                                    font_weight: '400',
+                                    lineHeight: 17.01,
+                                    fontWeight: '400',
                                     color: Themes.darkGreenColor),
                               ),
                             ],
@@ -373,21 +442,26 @@ class LogInScreen extends GetView<LoginController> {
                           height: 15.8.w,
                         ),
                         CustomTextButton(
-                            onSubmit: () {
-                              Get.toNamed(Routes.SIGNUP);
-                            },
-                            text: 'Create new account',
-                            border_radius_circular: 50,
-                            width: 80.9.h,
-                            height: 4.4.h,
-                            font_size: 16.sp,
-                            font_type: 'Montaga',
-                            font_weight: '400',
-                            line_height: 19.71,
-                            border_color: Themes.borderButtonColor,
-                            font_color: Themes.darkGreenColor,
-                            button_color: Themes.createNewAccountButtonColor,
-                            hasColor: true),
+                                onSubmit: () {
+                                  buttonAudio("song_assets/bubble.mp3");
+                                  Get.toNamed(Routes.SIGNUP);
+                                },
+                                text: 'Create new account',
+                                borderRadiusCircular: 50,
+                                width: 80.9.h,
+                                height: 4.4.h,
+                                fontSize: 16.sp,
+                                fontType: 'Montaga',
+                                fontWeight: '400',
+                                lineHeight: 19.71,
+                                borderColor: Themes.borderButtonColor,
+                                fontColor: Themes.darkGreenColor,
+                                buttonColor:
+                                    Themes.createNewAccountButtonColor,
+                                hasColor: true)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .slideX(),
                       ],
                     ),
                   ),
@@ -397,3 +471,28 @@ class LogInScreen extends GetView<LoginController> {
     );
   }
 }
+
+// class _OpenContainerWrapper extends StatelessWidget {
+//   const _OpenContainerWrapper({
+//     required this.closedBuilder,
+//     required this.transitionType,
+//   });
+//
+//   final CloseContainerBuilder closedBuilder;
+//   final ContainerTransitionType transitionType;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return OpenContainer<bool>(
+//       transitionType: transitionType,
+//       openBuilder: (BuildContext context, VoidCallback _) {
+//         return const SignUp();
+//       },
+//       closedElevation: 0.0,
+//       openColor: Colors.transparent,
+//       closedColor: Colors.transparent,
+//       tappable: false,
+//       closedBuilder: closedBuilder,
+//     );
+//   }
+// }

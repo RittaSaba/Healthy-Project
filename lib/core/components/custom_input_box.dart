@@ -21,7 +21,7 @@ class CustomInputBox extends StatelessWidget {
                 width: 1.8,
                 color: Themes.greyColor,
               ),
-              color: Themes.backgroundColor,
+              color: Themes.fieldColor1,
               shape: BoxShape.circle,
             ),
             child: TextField(
@@ -58,7 +58,7 @@ class CustomInputBox extends StatelessWidget {
                 width: 1.8,
                 color: Themes.greyColor,
               ),
-              color: Themes.backgroundColor,
+              color: Themes.fieldColor1,
               shape: BoxShape.circle,
             ),
             child: TextField(

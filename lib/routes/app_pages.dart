@@ -3,7 +3,7 @@ import 'package:temp_task2/app/Authenticated/authenticated_screen.dart';
 import 'package:temp_task2/getx_bindings/sign_up_binding.dart';
 import 'package:temp_task2/app/SignUp/sign_up_screen.dart';
 import 'package:temp_task2/getx_bindings/success_binding.dart';
-import 'package:temp_task2/app/Success/success_dialog.dart';
+import 'package:temp_task2/app/Success/success_bottom_sheet.dart';
 import 'package:temp_task2/getx_bindings/wrong_message_binding.dart';
 import 'package:temp_task2/app/WrongMessage/wrong_message_dialog.dart';
 
@@ -21,7 +21,6 @@ class AppPages {
 
   static const INITIAL = Routes.SPLASH;
   static final routes = [
-
     //Splash
     GetPage(
         name: Paths.SPLASH,
@@ -29,7 +28,9 @@ class AppPages {
         binding: SplashBinding()),
     //LogIn
     GetPage(
-        name: Paths.LOGIN, page: () => const LogInScreen(), binding: LoginBinding()),
+        name: Paths.LOGIN,
+        page: () =>  LogInScreen(),
+        binding: LoginBinding()),
     //LogOut
     GetPage(
         name: Paths.LOGOUT,
@@ -53,7 +54,7 @@ class AppPages {
     //Success
     GetPage(
         name: Paths.SUCCESS,
-        page: () => SuccessScreen(),
+        page: () => const SuccessBottomSheet(),
         binding: SuccessBinding()),
   ];
 }

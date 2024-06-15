@@ -1,17 +1,22 @@
+
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:sizer/sizer.dart';
 import 'package:temp_task2/app/LogOut/logout_dialog.dart';
+import 'package:temp_task2/app/Success/success_controller.dart';
 
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
+import '../../core/functions/button_audio.dart';
+import '../../core/functions/get_confetti_widget.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
 
-class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({Key? key}) : super(key: key);
+class SuccessBottomSheet extends GetView<SuccessController> {
+  const SuccessBottomSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,9 @@ class SuccessScreen extends StatelessWidget {
               children: [
                 SizedBox(
                   height: 3.5.h,
+                ),
+                GetConfettiWidget(
+                  confettiController: controller.confettiController,
                 ),
                 SvgPicture.asset(
                   'assets/images/right.svg',
@@ -54,29 +62,33 @@ class SuccessScreen extends StatelessWidget {
                     text:
                         'Congratulations! You have been \nsuccessfully authenticated',
                     size: 18.sp,
-                    font_weight: '500',
-                    line_height: 2.8.h,
+                    fontWeight: '500',
+                    lineHeight: 2.8.h,
                     color: Themes.lightGreyColor),
                 SizedBox(
                   height: 3.7.h,
                 ),
                 CustomTextButton(
                   onSubmit: () {
+                    buttonAudio("song_assets/message1.mp3");
                     Get.dialog(const LogOutDialog()); //(0.5, 0.36);
                   },
-                  border_color: Themes.borderButtonColor,
+                  borderColor: Themes.borderButtonColor,
                   text: 'Continue',
-                  border_radius_circular: 50,
+                  borderRadiusCircular: 50,
                   width: 42.7.w,
                   height: 3.8.h,
-                  font_size: 16.sp,
-                  font_type: 'Montaga',
-                  font_weight: '400',
-                  line_height: 19.71,
-                  font_color: Themes.darkGreenColor,
-                  button_color: Themes.successButtonColor,
+                  fontSize: 16.sp,
+                  fontType: 'Montaga',
+                  fontWeight: '400',
+                  lineHeight: 19.71,
+                  fontColor: Themes.darkGreenColor,
+                  buttonColor: Themes.successButtonColor,
                   hasColor: true,
-                ),
+                )
+                    .animate()
+                    .shimmer(duration: const Duration(seconds: 1))
+                    .slideX(),
               ],
             ),
           )
@@ -89,11 +101,19 @@ class SuccessScreen extends StatelessWidget {
                 SizedBox(
                   height: 3.5.w,
                 ),
-                SvgPicture.asset(
-                  'assets/images/right.svg',
-                  height: 12.4.w,
-                  width: 26.9.w,
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      GetConfettiWidget(
+                        confettiController: controller.confettiController,
+                      ),
+                      SvgPicture.asset(
+                        'assets/images/right.svg',
+                        height: 12.4.w,
+                        width: 26.9.w,
+                      ),
+                    ]),
                 SizedBox(height: 1.5.w),
                 SizedBox(
                   height: 3.5.h, //width: 20.6,
@@ -116,29 +136,33 @@ class SuccessScreen extends StatelessWidget {
                     text:
                         'Congratulations! You have been successfully authenticated',
                     size: 18.sp,
-                    font_weight: '500',
-                    line_height: 2.8.h,
+                    fontWeight: '500',
+                    lineHeight: 2.8.h,
                     color: Themes.lightGreyColor),
                 SizedBox(
                   height: 3.7.w,
                 ),
                 CustomTextButton(
                   onSubmit: () {
+                    buttonAudio("song_assets/message1.mp3");
                     Get.dialog(const LogOutDialog());
                   },
-                  border_color: Themes.borderButtonColor,
+                  borderColor: Themes.borderButtonColor,
                   text: 'Continue',
-                  border_radius_circular: 50,
+                  borderRadiusCircular: 50,
                   width: 42.7.h,
                   height: 3.8.h,
-                  font_size: 16.sp,
-                  font_type: 'Montaga',
-                  font_weight: '400',
-                  line_height: 19.71,
-                  font_color: Themes.darkGreenColor,
-                  button_color: Themes.successButtonColor,
+                  fontSize: 16.sp,
+                  fontType: 'Montaga',
+                  fontWeight: '400',
+                  lineHeight: 19.71,
+                  fontColor: Themes.darkGreenColor,
+                  buttonColor: Themes.successButtonColor,
                   hasColor: true,
-                ),
+                )
+                    .animate()
+                    .shimmer(duration: const Duration(seconds: 1))
+                    .slideX(),
               ],
             ),
           );

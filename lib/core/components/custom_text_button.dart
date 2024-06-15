@@ -5,31 +5,31 @@ import 'custom_text.dart';
 class CustomTextButton extends StatelessWidget {
   CustomTextButton(
       {required this.text,
-      required this.border_radius_circular,
+      required this.borderRadiusCircular,
       required this.width,
       required this.height,
-      required this.font_size,
-      required this.font_type,
-      required this.font_weight,
-      required this.line_height,
-      required this.font_color,
-      required this.button_color,
+      required this.fontSize,
+      required this.fontType,
+      required this.fontWeight,
+      required this.lineHeight,
+      required this.fontColor,
+      required this.buttonColor,
       required this.hasColor,
-      this.border_color,
-     this.onSubmit,
+      this.borderColor,
+      this.onSubmit,
       Key? key})
       : super(key: key);
   final String text;
-  final double border_radius_circular;
+  final double borderRadiusCircular;
   final double width;
   final double height;
-  final double font_size;
-  final String font_type;
-  final String font_weight;
-  final double line_height;
-  final Color font_color;
-  final Color button_color;
-   Color? border_color=Themes.borderButtonColor;
+  final double fontSize;
+  final String fontType;
+  final String fontWeight;
+  final double lineHeight;
+  final Color fontColor;
+  final Color buttonColor;
+  Color? borderColor = Themes.borderButtonColor;
   final bool hasColor;
   Function()? onSubmit;
 
@@ -42,25 +42,26 @@ class CustomTextButton extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           border: hasColor == true
-              ? Border.all(color: border_color as Color)
+              ? Border.all(color: borderColor as Color)
               : null,
-          borderRadius: BorderRadius.circular(border_radius_circular),
-          color: hasColor == true ? button_color : null,
+          borderRadius: BorderRadius.circular(borderRadiusCircular),
+          color: hasColor == true ? buttonColor : null,
         ),
         child: Center(
-          child: font_type == 'Cabin'
-          ? CustomCabinText(
-              text: text,
-              size: font_size,
-              line_height: line_height,
-              font_weight: font_weight,
-              color: Themes.fontColor1)
-          : CustomMontagaText(
-              text: text,
-              size: font_size,
-              line_height: line_height,
-              font_weight: font_weight,
-              color: font_color),
+          child: fontType == 'Cabin'
+              ? CustomCabinText(
+                  text: text,
+                  size: fontSize,
+                  lineHeight: lineHeight,
+                  fontWeight: fontWeight,
+                  color: Themes.fontColor1)
+              : CustomMontagaText(
+                  text: text,
+                  size: fontSize,
+                  lineHeight: lineHeight,
+                  fontWeight: fontWeight,
+                  color: fontColor,
+                  textAlign: TextAlign.center),
         ),
       ),
     );

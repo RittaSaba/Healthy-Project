@@ -23,5 +23,5 @@ abstract class Paths{
   static const  WRONG_MESSAGE='/wrong_message_screen';
 
   static const  AUTHENTICATED='/authenticated_screen';
-  static const  SUCCESS='/success_screen';
+  static const  SUCCESS='/success_bottom_sheet';
 }

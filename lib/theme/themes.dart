@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 class Themes {
+
   //Font Colors
-  static Color fontColorAtTextFormField =
-      const Color.fromRGBO(163, 197, 176, 1);
   static Color fontColor1 = const Color.fromRGBO(3, 80, 20, 1);
   static Color fontColor2 = const Color.fromRGBO(255, 253, 253, 1);
+  static Color fontColorAtTextFormField = const Color.fromRGBO(163, 197, 176, 1);
 
   //Button Colors
   static Color buttonColor = const Color(0xFFB6E5B9);
   static Color buttonColor2 = const Color.fromRGBO(16, 52, 18, 1);
   static Color logInButtonColor = const Color.fromRGBO(182, 229, 185, 1);
   static Color successButtonColor = const Color.fromRGBO(182, 229, 185, 1);
-  static Color createNewAccountButtonColor =
-      const Color.fromRGBO(182, 229, 185, 0.3);
+  static Color createNewAccountButtonColor = const Color.fromRGBO(182, 229, 185, 0.3);
 
   //Border Colors
   static Color borderButtonColor = const Color.fromRGBO(163, 197, 176, 1);
@@ -27,8 +26,9 @@ class Themes {
   static LinearGradient backgroundColorGradient = const LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
+    tileMode: TileMode.mirror,
     colors: [
-      Color.fromRGBO(242, 255, 243, 0.5),
+      Color.fromRGBO(255, 255, 255, 0.5),
       Color.fromRGBO(182, 229, 185, 0.5),
     ],
   );
@@ -54,8 +54,6 @@ class Themes {
 
   //Dialog Colors
   static Color dialogColor = const Color.fromRGBO(215, 221, 219, 1);
-
-  late Orientation screenOrientation;
 
   static ThemeData customLightTheme = ThemeData.light().copyWith(
     inputDecorationTheme: InputDecorationTheme(

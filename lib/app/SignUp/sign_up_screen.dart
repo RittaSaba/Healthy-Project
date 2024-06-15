@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -6,6 +7,7 @@ import 'package:temp_task2/app/SignUp/sign_up_controller.dart';
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
 import '../../core/components/custom_text_form_field.dart';
+import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../core/functions/open_file.dart';
 import '../../routes/app_routes.dart';
@@ -26,7 +28,6 @@ class SignUpScreen extends GetView<SignUpController> {
               decoration: BoxDecoration(
                 gradient: Themes.backgroundColorGradient,
               ),
-
               padding: EdgeInsets.symmetric(horizontal: 4.w),
               child: SingleChildScrollView(
                 child: Form(
@@ -67,7 +68,12 @@ class SignUpScreen extends GetView<SignUpController> {
                         validate: controller.usernameValidator,
                         //  suffix_icon: Icons.cancel,
                         focusNode: controller.usernameFocusNode,
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .fadeIn(curve: Curves.easeOut)
+                          .then()
+                          .flip(),
                       SizedBox(
                         height: 1.8.h,
                       ),
@@ -85,7 +91,12 @@ class SignUpScreen extends GetView<SignUpController> {
                           Icons.edit,
                           color: Themes.iconColorAtTextFormField,
                         ),
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .fadeIn(curve: Curves.easeOut)
+                          .then()
+                          .flip(),
                       SizedBox(
                         height: 1.8.h,
                       ),
@@ -100,7 +111,12 @@ class SignUpScreen extends GetView<SignUpController> {
                         hintText: 'Enter your mobile phone',
                         validate: controller.mobilePhoneValidator,
                         //     suffix_icon: Icons.cancel,
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .fadeIn(curve: Curves.easeOut)
+                          .then()
+                          .flip(),
                       SizedBox(
                         height: 1.8.h,
                       ),
@@ -115,6 +131,7 @@ class SignUpScreen extends GetView<SignUpController> {
                               color: Themes.iconColorAtTextFormField,
                             ),
                             onTap: () {
+                              buttonAudio("song_assets/bubble.mp3");
                               controller.isPasswordHidden.value =
                                   !controller.isPasswordHidden.value;
                             },
@@ -128,7 +145,12 @@ class SignUpScreen extends GetView<SignUpController> {
                           hintText: 'Enter your password',
                           validate: controller.passwordValidator,
                           //    suffix_icon: Icons.visibility_off,
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                       ),
                       SizedBox(
                         height: 1.8.h,
@@ -144,6 +166,7 @@ class SignUpScreen extends GetView<SignUpController> {
                               color: Themes.iconColorAtTextFormField,
                             ),
                             onTap: () {
+                              buttonAudio("song_assets/bubble.mp3");
                               controller.isPasswordConfirmHidden.value =
                                   !controller.isPasswordConfirmHidden.value;
                             },
@@ -154,13 +177,19 @@ class SignUpScreen extends GetView<SignUpController> {
                           labelText: 'Confirm Password',
                           hintText: 'Enter your password',
                           validate: controller.confirmPasswordValidator,
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                       ),
                       SizedBox(
                         height: 3.h,
                       ),
                       MaterialButton(
                         onPressed: () {
+                          buttonAudio("song_assets/bubble.mp3");
                           openFile();
                         },
                         height: 4.3.h,
@@ -177,9 +206,10 @@ class SignUpScreen extends GetView<SignUpController> {
                             CustomMontagaText(
                                 text: 'Certificate PDF file   ',
                                 size: 14.sp,
-                                line_height: 17.01,
-                                font_weight: '500',
-                                color: Themes.fontColorAtTextFormField),
+                                lineHeight: 17.01,
+                                fontWeight: '500',
+                                color: Themes.fontColorAtTextFormField,
+                                textAlign: TextAlign.center),
                             SvgPicture.asset(
                               'assets/images/up.svg',
                               color: Themes.iconColor,
@@ -189,14 +219,18 @@ class SignUpScreen extends GetView<SignUpController> {
                             ),
                           ],
                         ),
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .slideX(),
                       SizedBox(
                         height: 4.5.h,
                       ),
                       CustomTextButton(
-                          onSubmit: () {
-                            Get.toNamed(Routes.AUTHENTICATED);
-                          } /* async {
+                              onSubmit: () {
+                                buttonAudio("song_assets/bubble.mp3");
+                                Get.toNamed(Routes.AUTHENTICATED);
+                              } /* async {
                       if (controller.signupFormKey.currentState!.validate()) {
                         // LoadingOverlay.show(message: 'Registering...');
                         print('Registering');
@@ -223,44 +257,49 @@ class SignUpScreen extends GetView<SignUpController> {
                         } finally {}
                       }
                     }*/
-                          ,
-                          text: 'Sign up',
-                          border_radius_circular: 50,
-                          width: 80.9.w,
-                          height: 4.4.h,
-                          font_size: 16.sp,
-                          font_type: 'Montaga',
-                          font_weight: '400',
-                          line_height: 19.71,
-                          border_color: Themes.borderLogInButtonColor,
-                          font_color: Themes.darkGreenColor,
-                          button_color: Themes.logInButtonColor,
-                          hasColor: true),
+                              ,
+                              text: 'Sign up',
+                              borderRadiusCircular: 50,
+                              width: 80.9.w,
+                              height: 4.4.h,
+                              fontSize: 16.sp,
+                              fontType: 'Montaga',
+                              fontWeight: '400',
+                              lineHeight: 19.71,
+                              borderColor: Themes.borderLogInButtonColor,
+                              fontColor: Themes.darkGreenColor,
+                              buttonColor: Themes.logInButtonColor,
+                              hasColor: true)
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .slideX(),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                         children: [
                           CustomMontagaText(
                               text: 'Already have an account ?',
                               size: 12.sp,
-                              line_height: 14.58,
-                              font_weight: '500',
-                              color: Themes.fontColor1),
+                              lineHeight: 14.58,
+                              fontWeight: '500',
+                              color: Themes.fontColor1,
+                              textAlign: TextAlign.center),
                           SizedBox(
                             height: 2.h,
                             child: MaterialButton(
                               minWidth: 5.h,
                               height: 1.5.h,
                               onPressed: () {
+                                buttonAudio("song_assets/bubble.mp3");
                                 Get.offAllNamed(Routes.LOGIN);
                               },
                               child: CustomMontagaText(
                                   text: 'Log in',
                                   size: 12.sp,
-                                  line_height: 14.58,
-                                  font_weight: '500',
-                                  color: Themes.darkGreenColor2),
+                                  lineHeight: 14.58,
+                                  fontWeight: '500',
+                                  color: Themes.darkGreenColor2,
+                                  textAlign: TextAlign.center),
                             ),
                           ),
                         ],
@@ -317,7 +356,12 @@ class SignUpScreen extends GetView<SignUpController> {
                         validate: controller.usernameValidator,
                         //  suffix_icon: Icons.cancel,
                         focusNode: controller.usernameFocusNode,
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .fadeIn(curve: Curves.easeOut)
+                          .then()
+                          .flip(),
                       SizedBox(
                         height: 1.8.w,
                       ),
@@ -335,7 +379,12 @@ class SignUpScreen extends GetView<SignUpController> {
                           Icons.edit,
                           color: Themes.iconColorAtTextFormField,
                         ),
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .fadeIn(curve: Curves.easeOut)
+                          .then()
+                          .flip(),
                       SizedBox(
                         height: 1.8.w,
                       ),
@@ -350,7 +399,12 @@ class SignUpScreen extends GetView<SignUpController> {
                         hintText: 'Enter your mobile phone',
                         validate: controller.mobilePhoneValidator,
                         //     suffix_icon: Icons.cancel,
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .fadeIn(curve: Curves.easeOut)
+                          .then()
+                          .flip(),
                       SizedBox(
                         height: 1.8.w,
                       ),
@@ -365,6 +419,7 @@ class SignUpScreen extends GetView<SignUpController> {
                               color: Themes.iconColorAtTextFormField,
                             ),
                             onTap: () {
+                              buttonAudio("song_assets/bubble.mp3");
                               controller.isPasswordHidden.value =
                                   !controller.isPasswordHidden.value;
                             },
@@ -378,7 +433,12 @@ class SignUpScreen extends GetView<SignUpController> {
                           hintText: 'Enter your password',
                           validate: controller.passwordValidator,
                           //    suffix_icon: Icons.visibility_off,
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                       ),
                       SizedBox(
                         height: 1.8.w,
@@ -394,6 +454,7 @@ class SignUpScreen extends GetView<SignUpController> {
                               color: Themes.iconColorAtTextFormField,
                             ),
                             onTap: () {
+                              buttonAudio("song_assets/bubble.mp3");
                               controller.isPasswordConfirmHidden.value =
                                   !controller.isPasswordConfirmHidden.value;
                             },
@@ -407,13 +468,19 @@ class SignUpScreen extends GetView<SignUpController> {
                           hintText: 'Enter your password',
                           validate: controller.confirmPasswordValidator,
                           //suffix_icon: Icons.visibility_off,
-                        ),
+                        )
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                       ),
                       SizedBox(
                         height: 3.w,
                       ),
                       MaterialButton(
                         onPressed: () {
+                          buttonAudio("song_assets/bubble.mp3");
                           openFile();
                         },
                         height: 4.3.h,
@@ -430,9 +497,10 @@ class SignUpScreen extends GetView<SignUpController> {
                             CustomMontagaText(
                                 text: 'Certificate PDF file   ',
                                 size: 14.sp,
-                                line_height: 17.01,
-                                font_weight: '500',
-                                color: Themes.fontColorAtTextFormField),
+                                lineHeight: 17.01,
+                                fontWeight: '500',
+                                color: Themes.fontColorAtTextFormField,
+                                textAlign: TextAlign.center),
                             SvgPicture.asset(
                               'assets/images/up.svg',
                               color: Themes.iconColor,
@@ -442,14 +510,18 @@ class SignUpScreen extends GetView<SignUpController> {
                             ),
                           ],
                         ),
-                      ),
+                      )
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .slideX(),
                       SizedBox(
                         height: 4.5.w,
                       ),
                       CustomTextButton(
-                          onSubmit: () {
-                            Get.toNamed(Routes.AUTHENTICATED);
-                          } /* async {
+                              onSubmit: () {
+                                buttonAudio("song_assets/bubble.mp3");
+                                Get.toNamed(Routes.AUTHENTICATED);
+                              } /* async {
                       if (controller.signupFormKey.currentState!.validate()) {
                         // LoadingOverlay.show(message: 'Registering...');
                         print('Registering');
@@ -476,19 +548,22 @@ class SignUpScreen extends GetView<SignUpController> {
                         } finally {}
                       }
                     }*/
-                          ,
-                          text: 'Sign up',
-                          border_radius_circular: 50,
-                          width: 80.9.h,
-                          height: 4.4.h,
-                          font_size: 16.sp,
-                          font_type: 'Montaga',
-                          font_weight: '400',
-                          line_height: 19.71,
-                          border_color: Themes.borderLogInButtonColor,
-                          font_color: Themes.darkGreenColor,
-                          button_color: Themes.logInButtonColor,
-                          hasColor: true),
+                              ,
+                              text: 'Sign up',
+                              borderRadiusCircular: 50,
+                              width: 80.9.h,
+                              height: 4.4.h,
+                              fontSize: 16.sp,
+                              fontType: 'Montaga',
+                              fontWeight: '400',
+                              lineHeight: 19.71,
+                              borderColor: Themes.borderLogInButtonColor,
+                              fontColor: Themes.darkGreenColor,
+                              buttonColor: Themes.logInButtonColor,
+                              hasColor: true)
+                          .animate()
+                          .shimmer(duration: const Duration(seconds: 1))
+                          .slideX(),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -498,23 +573,26 @@ class SignUpScreen extends GetView<SignUpController> {
                           CustomMontagaText(
                               text: 'Already have an account ?',
                               size: 12.sp,
-                              line_height: 14.58,
-                              font_weight: '500',
-                              color: Themes.fontColor1),
+                              lineHeight: 14.58,
+                              fontWeight: '500',
+                              color: Themes.fontColor1,
+                              textAlign: TextAlign.center),
                           SizedBox(
                             height: 2.5.h,
                             child: MaterialButton(
                               minWidth: 5.h,
                               height: 1.5.h,
                               onPressed: () {
+                                buttonAudio("song_assets/bubble.mp3");
                                 Get.offAllNamed(Routes.LOGIN);
                               },
                               child: CustomMontagaText(
                                   text: 'Log in',
                                   size: 12.sp,
-                                  line_height: 14.58,
-                                  font_weight: '500',
-                                  color: Themes.darkGreenColor2),
+                                  lineHeight: 14.58,
+                                  fontWeight: '500',
+                                  color: Themes.darkGreenColor2,
+                                  textAlign: TextAlign.center),
                             ),
                           ),
                         ],
@@ -526,6 +604,4 @@ class SignUpScreen extends GetView<SignUpController> {
             ),
     );
   }
-
-
 }

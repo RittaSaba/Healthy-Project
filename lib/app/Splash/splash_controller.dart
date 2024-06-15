@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -7,7 +8,7 @@ class SplashController extends GetxController {
   final getStorage = GetStorage();
 
   @override
-  void onReady() {
+  Future<void> onReady() async {
     super.onReady();
 
     Future.delayed(

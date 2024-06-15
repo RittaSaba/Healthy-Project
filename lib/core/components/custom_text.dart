@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
 class CustomCabinText extends StatelessWidget {
   const CustomCabinText(
       {required this.text,
       required this.size,
-      required this.line_height,
-      required this.font_weight,
+      required this.lineHeight,
+      required this.fontWeight,
       required this.color,
       Key? key})
       : super(key: key);
   final String text;
   final double size;
-  final double line_height;
-  final String font_weight;
+  final double lineHeight;
+  final String fontWeight;
   final Color color;
 
   @override
@@ -24,7 +23,7 @@ class CustomCabinText extends StatelessWidget {
       textAlign: TextAlign.center,
       style: GoogleFonts.getFont(
         'Cabin',
-        fontWeight: font_weight == '500' ? FontWeight.w500 : FontWeight.w400,
+        fontWeight: fontWeight == '500' ? FontWeight.w500 : FontWeight.w400,
         fontSize: size,
         color: color,
         // height: line_height,
@@ -34,28 +33,30 @@ class CustomCabinText extends StatelessWidget {
 }
 
 class CustomMontagaText extends StatelessWidget {
-  const CustomMontagaText(
-      {required this.text,
-      required this.size,
-      required this.line_height,
-      required this.font_weight,
-      required this.color,
-      Key? key})
-      : super(key: key);
+  const CustomMontagaText({
+    required this.text,
+    required this.size,
+    required this.lineHeight,
+    required this.fontWeight,
+    required this.color,
+    required this.textAlign,
+    Key? key,
+  }) : super(key: key);
   final String text;
   final double size;
-  final double line_height;
-  final String font_weight;
+  final double lineHeight;
+  final String fontWeight;
   final Color color;
+  final textAlign;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      textAlign: TextAlign.center,
+      textAlign: textAlign,
       style: GoogleFonts.getFont(
         'Montaga',
-        fontWeight: font_weight == '500' ? FontWeight.w500 : FontWeight.w400,
+        fontWeight: fontWeight == '500' ? FontWeight.w500 : FontWeight.w400,
         fontSize: size,
 
         color: color,

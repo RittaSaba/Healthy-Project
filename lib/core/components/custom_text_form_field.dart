@@ -106,7 +106,6 @@ class CustomTextFormField extends StatelessWidget {
                 // ),
                 errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide.none,
-
                 ),
                 alignLabelWithHint: true,
                 hintText: hintText,
@@ -212,7 +211,6 @@ class CustomTextFormField extends StatelessWidget {
                 // ),
                 errorBorder: const OutlineInputBorder(
                   borderSide: BorderSide.none,
-
                 ),
                 alignLabelWithHint: true,
                 hintText: hintText,

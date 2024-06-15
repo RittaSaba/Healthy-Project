@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:temp_task2/app/Authenticated/authenticated_controller.dart';
 import '../../core/components/custom_input_box.dart';
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
+import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
 import '../WrongMessage/wrong_message_dialog.dart';
@@ -51,9 +53,10 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                       child: CustomMontagaText(
                           text: 'Verification Code',
                           size: 24.sp,
-                          line_height: 29.57,
-                          font_weight: '400',
-                          color: Themes.darkGreenColor),
+                          lineHeight: 29.57,
+                          fontWeight: '400',
+                          color: Themes.darkGreenColor,
+                          textAlign: TextAlign.left),
                     ),
                     SizedBox(
                       height: 3.7.h,
@@ -62,21 +65,52 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         text:
                             'We have sent the verification code to \nyour email address',
                         size: 16.sp,
-                        line_height: 19.71,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 19.71,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.left),
                     SizedBox(
                       height: 7.6.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CustomInputBox(controller: controller.txt1),
-                        CustomInputBox(controller: controller.txt2),
-                        CustomInputBox(controller: controller.txt3),
-                        CustomInputBox(controller: controller.txt4),
-                        CustomInputBox(controller: controller.txt5),
-                        CustomInputBox(controller: controller.txt6),
+                        CustomInputBox(controller: controller.txt1)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt2)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt3)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt4)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt5)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt6)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                       ],
                     ),
 
@@ -91,9 +125,10 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         child: CustomMontagaText(
                             text: '03:00',
                             size: 16.sp,
-                            line_height: 2.42,
-                            font_weight: 'Cabin',
-                            color: Themes.darkGreenColor),
+                            lineHeight: 2.42,
+                            fontWeight: 'Cabin',
+                            color: Themes.darkGreenColor,
+                            textAlign: TextAlign.center),
                       ),
                     ),
 
@@ -103,22 +138,26 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                       height: 5.6.h,
                       width: 23.w,
                       child: CustomTextButton(
-                          border_color: Themes.borderButtonColor,
+                          borderColor: Themes.borderButtonColor,
                           onSubmit: () {
+                            buttonAudio("song_assets/message1.mp3");
                             Get.dialog(const WrongMessageDialog());
                           },
                           width: 20.w,
                           height: 2.6.h,
                           text: 'Send again',
-                          border_radius_circular: 0,
-                          font_size: 15.sp,
-                          font_type: 'Cabin',
-                          font_weight: '400',
-                          line_height: 22.9,
-                          font_color: Themes.darkGreenColor,
-                          button_color: Themes.backgroundColor,
+                          borderRadiusCircular: 0,
+                          fontSize: 15.sp,
+                          fontType: 'Cabin',
+                          fontWeight: '400',
+                          lineHeight: 22.9,
+                          fontColor: Themes.darkGreenColor,
+                          buttonColor: Themes.backgroundColor,
                           hasColor: false),
-                    ),
+                    )
+                        .animate()
+                        .shimmer(duration: const Duration(seconds: 1))
+                        .slideX(),
 
                     // SizedBox(
                     //   height: 6.6.h,
@@ -159,9 +198,10 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                       child: CustomMontagaText(
                           text: 'Verification Code',
                           size: 24.sp,
-                          line_height: 29.57,
-                          font_weight: '400',
-                          color: Themes.darkGreenColor),
+                          lineHeight: 29.57,
+                          fontWeight: '400',
+                          color: Themes.darkGreenColor,
+                          textAlign: TextAlign.left),
                     ),
                     SizedBox(
                       height: 3.7.w,
@@ -170,21 +210,52 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         text:
                             'We have sent the verification code to your email address',
                         size: 16.sp,
-                        line_height: 19.71,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 19.71,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.left),
                     SizedBox(
                       height: 7.6.h,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CustomInputBox(controller: controller.txt1),
-                        CustomInputBox(controller: controller.txt2),
-                        CustomInputBox(controller: controller.txt3),
-                        CustomInputBox(controller: controller.txt4),
-                        CustomInputBox(controller: controller.txt5),
-                        CustomInputBox(controller: controller.txt6),
+                        CustomInputBox(controller: controller.txt1)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt2)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt3)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt4)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt5)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
+                        CustomInputBox(controller: controller.txt6)
+                            .animate()
+                            .shimmer(duration: const Duration(seconds: 1))
+                            .fadeIn(curve: Curves.easeOut)
+                            .then()
+                            .flip(),
                       ],
                     ),
                     SizedBox(
@@ -198,9 +269,10 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         child: CustomMontagaText(
                             text: '03:00',
                             size: 16.sp,
-                            line_height: 2.42,
-                            font_weight: 'Cabin',
-                            color: Themes.darkGreenColor),
+                            lineHeight: 2.42,
+                            fontWeight: 'Cabin',
+                            color: Themes.darkGreenColor,
+                            textAlign: TextAlign.center),
                       ),
                     ),
                     Container(
@@ -209,22 +281,26 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                       height: 5.6.h,
                       width: 23.h,
                       child: CustomTextButton(
-                          border_color: Themes.borderButtonColor,
+                          borderColor: Themes.borderButtonColor,
                           onSubmit: () {
+                            buttonAudio("song_assets/message1.mp3");
                             Get.dialog(const WrongMessageDialog());
                           },
                           width: 20.h,
                           height: 2.6.h,
                           text: 'Send again',
-                          border_radius_circular: 0,
-                          font_size: 15.sp,
-                          font_type: 'Cabin',
-                          font_weight: '400',
-                          line_height: 22.9,
-                          font_color: Themes.darkGreenColor,
-                          button_color: Themes.backgroundColor,
+                          borderRadiusCircular: 0,
+                          fontSize: 15.sp,
+                          fontType: 'Cabin',
+                          fontWeight: '400',
+                          lineHeight: 22.9,
+                          fontColor: Themes.darkGreenColor,
+                          buttonColor: Themes.backgroundColor,
                           hasColor: false),
-                    ),
+                    )
+                        .animate()
+                        .shimmer(duration: const Duration(seconds: 1))
+                        .slideX(),
                   ],
                 ),
               ),

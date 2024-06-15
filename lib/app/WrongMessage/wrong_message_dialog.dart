@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
+import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
 
@@ -47,38 +49,47 @@ class WrongMessageDialog extends StatelessWidget {
                     CustomMontagaText(
                         text: 'Oh no!',
                         size: 20.sp,
-                        line_height: 19.44,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 19.44,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.center),
                     CustomMontagaText(
                         text: 'Something went wrong.',
                         size: 16.sp,
-                        line_height: 19.71,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 19.71,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.center),
                     CustomMontagaText(
                         text: 'Please try again.',
                         size: 12.sp,
-                        line_height: 14.78,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 14.78,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.center),
                     SizedBox(
                       height: 6.4.h,
                     ),
                     CustomTextButton(
-                        onSubmit: Get.back,
-                        border_color: Themes.borderButtonColor,
-                        text: 'Try again',
-                        border_radius_circular: 50.sp,
-                        width: 28.7.w,
-                        height: 3.2.h,
-                        font_size: 12.sp,
-                        font_type: 'Montaga',
-                        font_weight: '400',
-                        line_height: 14.78,
-                        font_color: Themes.fontColor2,
-                        button_color: Themes.buttonColor2,
-                        hasColor: true),
+                            onSubmit: () {
+                              buttonAudio("song_assets/bubble.mp3");
+                              Get.back;
+                            },
+                            borderColor: Themes.borderButtonColor,
+                            text: 'Try again',
+                            borderRadiusCircular: 50.sp,
+                            width: 28.7.w,
+                            height: 3.2.h,
+                            fontSize: 12.sp,
+                            fontType: 'Montaga',
+                            fontWeight: '400',
+                            lineHeight: 14.78,
+                            fontColor: Themes.fontColor2,
+                            buttonColor: Themes.buttonColor2,
+                            hasColor: true)
+                        .animate()
+                        .shimmer(duration: const Duration(seconds: 1))
+                        .slideX(),
                     SizedBox(
                       height: 4.1.h,
                     ),
@@ -119,38 +130,47 @@ class WrongMessageDialog extends StatelessWidget {
                     CustomMontagaText(
                         text: 'Oh no!',
                         size: 20.sp,
-                        line_height: 19.44,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 19.44,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.center),
                     CustomMontagaText(
                         text: 'Something went wrong.',
                         size: 16.sp,
-                        line_height: 19.71,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 19.71,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.center),
                     CustomMontagaText(
                         text: 'Please try again.',
                         size: 12.sp,
-                        line_height: 14.78,
-                        font_weight: '400',
-                        color: Colors.black),
+                        lineHeight: 14.78,
+                        fontWeight: '400',
+                        color: Colors.black,
+                        textAlign: TextAlign.center),
                     SizedBox(
                       height: 6.4.h,
                     ),
                     CustomTextButton(
-                        onSubmit: Get.back,
-                        border_color: Themes.borderButtonColor,
-                        text: 'Try again',
-                        border_radius_circular: 50.sp,
-                        width: 28.7.w,
-                        height: 3.2.h,
-                        font_size: 12.sp,
-                        font_type: 'Montaga',
-                        font_weight: '400',
-                        line_height: 14.78,
-                        font_color: Themes.fontColor2,
-                        button_color: Themes.buttonColor2,
-                        hasColor: true),
+                            onSubmit: () {
+                              buttonAudio("song_assets/bubble.mp3");
+                              Get.back;
+                            },
+                            borderColor: Themes.borderButtonColor,
+                            text: 'Try again',
+                            borderRadiusCircular: 50.sp,
+                            width: 28.7.w,
+                            height: 3.2.h,
+                            fontSize: 12.sp,
+                            fontType: 'Montaga',
+                            fontWeight: '400',
+                            lineHeight: 14.78,
+                            fontColor: Themes.fontColor2,
+                            buttonColor: Themes.buttonColor2,
+                            hasColor: true)
+                        .animate()
+                        .shimmer(duration: const Duration(seconds: 1))
+                        .slideX(),
                     SizedBox(
                       height: 4.1.h,
                     ),

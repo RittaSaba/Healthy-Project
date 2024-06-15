@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -19,8 +20,14 @@ class LoginController extends GetxController {
 
   RxBool isPasswordHidden = true.obs;
 
+  // //Confetti Animation
+  // var isPlaying = false.obs;
+  // late ConfettiController confettiController;
+
   @override
   void onInit() {
+    //Confetti Animation
+    // confettiController = ConfettiController();
     rememberMe.value = getStorage.read('rememberMe') ?? false;
     super.onInit();
   }
@@ -38,11 +45,24 @@ class LoginController extends GetxController {
 
   @override
   void onClose() {
+    //Confetti Animation
+    // confettiController.dispose();
+
     //emailController.dispose();
     //passwordController.dispose();
     super.onClose();
   }
 
+  //Confetti Animation
+  // startConfettiAnimation() {
+  //   if (confettiController.state == ConfettiControllerState.playing) {
+  //     isPlaying.value = false;
+  //     confettiController.stop();
+  //   } else {
+  //     isPlaying.value = true;
+  //     confettiController.play();
+  //   }
+  // }
   String? validator(String? value) {
     log('validatoooor');
 
