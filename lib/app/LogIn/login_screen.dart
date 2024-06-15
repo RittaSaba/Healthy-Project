@@ -57,7 +57,7 @@ class LogInScreen extends GetView<LoginController> {
                           textInputType: TextInputType.emailAddress,
                           labelText: 'Email',
                           hintText: 'Enter your email',
-                          validate:(value) {return controller.emailValidator(controller.emailController.text);},
+                          validate:(String) {},
                           suffixIcon: Icon(
                             Icons.edit,
                             color: Themes.iconColorAtTextFormField,
@@ -132,7 +132,7 @@ class LogInScreen extends GetView<LoginController> {
                                             content: const FulsDialog(),
                                           );
                                         }
-                                      : () {controller.login();/*
+                                      : () {controller.login();
                                           buttonAudio("song_assets/tada.mp3");
                                           Get.lazyPut(
                                               () => SuccessController());
@@ -140,7 +140,7 @@ class LogInScreen extends GetView<LoginController> {
                                             backgroundColor:
                                                 Themes.backGroundDialogColor,
                                             const SuccessBottomSheet(),
-                                          );*/
+                                          );
                                         },
                                   text: 'Log in',
                                   borderRadiusCircular: 50,
