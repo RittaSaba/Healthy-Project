@@ -2,8 +2,21 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpController extends GetxController {
+  final getStorage = GetStorage();
+
+
+
+
+
+  bool isLoading=false;
+
+  // File?fileToDisplay;
+
+
   final userNameController = TextEditingController();
   final emailController = TextEditingController();
   final mobileNumberController = TextEditingController();
@@ -21,8 +34,12 @@ class SignUpController extends GetxController {
   FocusNode passwordFocusNode = FocusNode();
   FocusNode confirmPasswordFocusNode = FocusNode();
 
-  var selectedImagePath = ''.obs;
+
+  //image picker
+
+  RxString imagePath = ''.obs;
   var selectedImageSize = ''.obs;
+//File ? selectedImage;
 
 /*
   SignupController(AuthApiService authenticationService)
@@ -175,8 +192,8 @@ class SignUpController extends GetxController {
       throw Exception('An error occurred, invalid inputs value');
     }
   }*/
-/*
-  Future getImage(ImageSource imageSource) async {
+
+ /* Future getImage(ImageSource imageSource) async {
     // final ImagePicker _picker=ImagePicker();
     // final image=await _picker.pickImage(source: ImageSource.gallery);
     // if(image!=null){
@@ -194,4 +211,61 @@ class SignUpController extends GetxController {
           colorText: Colors.pink);
     }
   }*/
+// Future pickImageFromGallery()async{
+//  final File selectedImage= (await ImagePicker().pickImage(source: ImageSource.gallery)) as File;
+//  // selectedImage=File(returnedImage!.path);
+// }
+
+  // File? _image;
+  // Future getImage(ImageSource source) async {
+  //
+  //     final image = await ImagePicker().pickImage(source: source);
+  //     if (image == null) return;
+  //     final imageTemporary = File(image.path as List<Object>);
+  //     final imagePermanent = await saveFilePermanently(image.path);
+  //     // setState(() {
+  //     //   //  this._image = imagePermanent;
+  //     // });
+  //
+  // }
+  // Future<File> saveFilePermanently(String imagePath) async {
+  //   final directory = await getApplicationDocumentsDirectory();
+  //   final name = basename(imagePath);
+  //   final image = File('${directory.path}/$name');
+  //   return File(imagePath).copy(image.path);
+  // }
+  // void pickFile()async{
+  //
+  //
+  //     result =await FilePicker.platform.pickFiles(type: FileType.image,allowMultiple: true);
+  //
+  //     if(result!=null){
+  //       //send attachments to the database
+  //       _fileName=result!.files.first.name;
+  //       pickedfile=result!.files.first;
+  //       filePath= result!.files.first.path!;
+  //     var  fileToDisplay11=File(filePath);
+  //       print("File name $result!.files.first.name");
+  //
+  //     }
+  //
+  //
+  // }
+  // void openImage() async {
+  //   FilePickerResult? resultFile = await FilePicker.platform.pickFiles(type: FileType.image);
+  //   if (resultFile != null) {
+  //      image = resultFile.files.first;
+  //      selectedImagePath=image.path.obs.value as RxString;
+  //     print('image name *********************************** ${image.name}');
+  //   } else {}
+  // }
+Future getImage()async{
+  final ImagePicker picker =ImagePicker();
+  final image =await picker.pickImage(source:ImageSource.gallery);
+
+  if(image!=null){
+    getStorage.save();
+    imagePath.value=image.path.toString(); getStorage.write('profile image',image.path.toString() );
+  }
+}
 }

@@ -57,7 +57,7 @@ class CustomTextFormField extends StatelessWidget {
 
 //   onFieldSubmitted: onSubmit,
 // onChanged: onChange,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               style: GoogleFonts.getFont(
                 'Cabin',
                 fontWeight: FontWeight.w500,
@@ -162,7 +162,7 @@ class CustomTextFormField extends StatelessWidget {
 
 //   onFieldSubmitted: onSubmit,
 // onChanged: onChange,
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.left,
               style: GoogleFonts.getFont(
                 'Cabin',
                 fontWeight: FontWeight.w500,

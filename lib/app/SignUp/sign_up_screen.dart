@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
@@ -46,13 +48,27 @@ class SignUpScreen extends GetView<SignUpController> {
                               Border.all(width: 1.5, color: Themes.fontColor1),
                           shape: BoxShape.circle,
                         ),
-                        child: SvgPicture.asset(
-                          'assets/images/camera.svg',
-                          color: Themes.fontColor1,
-                          height: 3.h,
-                          width: 8.2.w,
-                          fit: BoxFit.none,
-                        ),
+                        child: Obx(() => GestureDetector(
+                              child: CircleAvatar(
+                                backgroundColor: Colors.white,
+                                radius: 5.25.h,
+                                backgroundImage: controller.imagePath.isNotEmpty
+                                    ? FileImage(File(controller.getStorage
+                                        .read('profile image')))
+                                    : null,
+                                child: controller.imagePath.isNotEmpty
+                                    ? null
+                                    : SvgPicture.asset(
+                                        'assets/images/camera.svg',
+                                        color: Themes.fontColor1,
+
+                                        fit: BoxFit.fill,
+                                      ),
+                              ),
+                              onTap: () {
+                                controller.getImage();
+                              },
+                            )),
                       ),
                       SizedBox(
                         height: 6.4.h,
@@ -334,13 +350,27 @@ class SignUpScreen extends GetView<SignUpController> {
                               Border.all(width: 1.5, color: Themes.fontColor1),
                           shape: BoxShape.circle,
                         ),
-                        child: SvgPicture.asset(
-                          'assets/images/camera.svg',
-                          color: Themes.fontColor1,
-                          height: 3.h,
-                          width: 8.2.h,
-                          fit: BoxFit.none,
-                        ),
+                        child: Obx(() => GestureDetector(
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            radius: 5.25.h,
+                            backgroundImage: controller.imagePath.isNotEmpty
+                                ? FileImage(File(controller.getStorage
+                                .read('profile image')))
+                                : null,
+                            child: controller.imagePath.isNotEmpty
+                                ? null
+                                : SvgPicture.asset(
+                              'assets/images/camera.svg',
+                              color: Themes.fontColor1,
+
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+                          onTap: () {
+                            controller.getImage();
+                          },
+                        )),
                       ),
                       SizedBox(
                         height: 6.4.w,
