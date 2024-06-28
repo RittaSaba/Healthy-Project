@@ -29,7 +29,6 @@ class CustomInputBox extends StatelessWidget {
               controller: controller,
               maxLength: 1,
               textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
               style: TextStyle(
                   fontSize: 14.sp,
                   color: Themes.greyColor,
@@ -46,7 +45,11 @@ class CustomInputBox extends StatelessWidget {
               onChanged: (value) {
                 if (value.length == 1) {
                   FocusScope.of(context).nextFocus();
+
+
                 }
+
+
               },
             ),
           )
@@ -67,7 +70,7 @@ class CustomInputBox extends StatelessWidget {
               controller: controller,
               maxLength: 1,
               textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
+
               style: TextStyle(
                   fontSize: 15.sp,
                   color: Themes.greyColor,

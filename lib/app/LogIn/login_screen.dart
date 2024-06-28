@@ -1,12 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:roundcheckbox/roundcheckbox.dart';
 import 'package:sizer/sizer.dart';
-import 'package:temp_task2/app/Fuls/fuls_dialog.dart';
-import 'package:temp_task2/app/Success/success_bottom_sheet.dart';
-import 'package:temp_task2/app/Success/success_controller.dart';
 import 'package:temp_task2/routes/app_routes.dart';
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
@@ -14,6 +11,8 @@ import '../../core/components/custom_text_form_field.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
+import '../Success/success_bottom_sheet.dart';
+import '../Success/success_controller.dart';
 import 'login_controller.dart';
 
 class LogInScreen extends GetView<LoginController> {
@@ -52,12 +51,15 @@ class LogInScreen extends GetView<LoginController> {
                           height: 0.h,
                         ),
                         CustomTextFormField(
+                          onChange: (value) {
+                            controller.email = value;
+                          },
                           isPassword: false,
                           controller: controller.emailController,
                           textInputType: TextInputType.emailAddress,
                           labelText: 'Email',
                           hintText: 'Enter your email',
-                          validate:(String) {},
+                          validate: (String) {},
                           suffixIcon: Icon(
                             Icons.edit,
                             color: Themes.iconColorAtTextFormField,
@@ -72,6 +74,9 @@ class LogInScreen extends GetView<LoginController> {
                           height: 2.4.h,
                         ),
                         CustomTextFormField(
+                          onChange: (value) {
+                            controller.mobileNumber = value;
+                          },
                           isPassword: false,
                           controller: controller.mobileNumberController,
                           textInputType: TextInputType.phone,
@@ -91,6 +96,9 @@ class LogInScreen extends GetView<LoginController> {
                         ),
                         Obx(
                           () => CustomTextFormField(
+                            onChange: (value) {
+                              controller.password = value;
+                            },
                             isPassword: controller.isPasswordHidden.value,
                             suffixIcon: InkWell(
                               child: Icon(
@@ -120,9 +128,9 @@ class LogInScreen extends GetView<LoginController> {
                         SizedBox(
                           height: 2.4.h,
                         ),
-                        Obx(
-                          () => CustomTextButton(
-                                  onSubmit: controller.rememberMe.value == false
+                       CustomTextButton(
+                                  onSubmit:(){onClickLogin();}, /*controller.checkBoxStatus.value ==
+                                          false
                                       ? () {
                                           buttonAudio("song_assets/error1.mp3");
                                           Get.defaultDialog(
@@ -132,7 +140,8 @@ class LogInScreen extends GetView<LoginController> {
                                             content: const FulsDialog(),
                                           );
                                         }
-                                      : () {controller.login();
+                                      : () {
+                                          controller.login();
                                           buttonAudio("song_assets/tada.mp3");
                                           Get.lazyPut(
                                               () => SuccessController());
@@ -141,7 +150,7 @@ class LogInScreen extends GetView<LoginController> {
                                                 Themes.backGroundDialogColor,
                                             const SuccessBottomSheet(),
                                           );
-                                        },
+                                        },*/
                                   text: 'Log in',
                                   borderRadiusCircular: 50,
                                   width: 80.9.w,
@@ -157,7 +166,7 @@ class LogInScreen extends GetView<LoginController> {
                               .animate()
                               .shimmer(duration: const Duration(seconds: 1))
                               .slideX(),
-                        ),
+
                         SizedBox(
                           width: 80.9.w,
                           height: 4.h,
@@ -178,10 +187,11 @@ class LogInScreen extends GetView<LoginController> {
                                           color: Themes.rightIcon,
                                         ),
                                         checkedColor: Colors.white,
-                                        isChecked: controller.rememberMe.value,
+                                        isChecked:
+                                            controller.checkBoxStatus.value,
                                         onTap: (value) {
                                           buttonAudio("song_assets/bubble.mp3");
-                                          controller.toggleRememberMe(value!);
+                                          controller.changeCheckBox();
                                         },
                                         border: Border.all(
                                           width: 1.5.sp,
@@ -236,8 +246,7 @@ class LogInScreen extends GetView<LoginController> {
                                 lineHeight: 19.71,
                                 borderColor: Themes.borderButtonColor,
                                 fontColor: Themes.darkGreenColor,
-                                buttonColor:
-                                    Themes.createNewAccountButtonColor,
+                                buttonColor: Themes.createNewAccountButtonColor,
                                 hasColor: true)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
@@ -271,6 +280,9 @@ class LogInScreen extends GetView<LoginController> {
                           ),
                         ),
                         CustomTextFormField(
+                          onChange: (value) {
+                            controller.email = value;
+                          },
                           isPassword: false,
                           controller: controller.emailController,
                           textInputType: TextInputType.emailAddress,
@@ -291,6 +303,9 @@ class LogInScreen extends GetView<LoginController> {
                           height: 2.4.w,
                         ),
                         CustomTextFormField(
+                          onChange: (value) {
+                            controller.mobileNumber = value;
+                          },
                           isPassword: false,
                           controller: controller.mobileNumberController,
                           textInputType: TextInputType.phone,
@@ -310,6 +325,9 @@ class LogInScreen extends GetView<LoginController> {
                         ),
                         Obx(
                           () => CustomTextFormField(
+                            onChange: (value) {
+                              controller.password = value;
+                            },
                             isPassword: controller.isPasswordHidden.value,
                             suffixIcon: InkWell(
                               child: Icon(
@@ -326,11 +344,9 @@ class LogInScreen extends GetView<LoginController> {
                             ),
                             controller: controller.passwordController,
                             textInputType: TextInputType.visiblePassword,
-
                             labelText: 'Password',
                             hintText: 'Enter your password',
                             validate: (String) {},
-
                           )
                               .animate()
                               .shimmer(duration: const Duration(seconds: 1))
@@ -341,9 +357,9 @@ class LogInScreen extends GetView<LoginController> {
                         SizedBox(
                           height: 2.4.w,
                         ),
-                        Obx(
-                          () => CustomTextButton(
-                                  onSubmit: controller.rememberMe.value == false
+                       CustomTextButton(
+                                  onSubmit:(){onClickLogin();},/* controller.checkBoxStatus.value ==
+                                          false
                                       ? () {
                                           buttonAudio("song_assets/error1.mp3");
                                           Get.defaultDialog(
@@ -362,7 +378,7 @@ class LogInScreen extends GetView<LoginController> {
                                                 Themes.backGroundDialogColor,
                                             const SuccessBottomSheet(),
                                           );
-                                        },
+                                        },*/
                                   text: 'Log in',
                                   borderRadiusCircular: 50,
                                   width: 80.9.h,
@@ -378,7 +394,7 @@ class LogInScreen extends GetView<LoginController> {
                               .animate()
                               .shimmer(duration: const Duration(seconds: 1))
                               .slideX(),
-                        ),
+
                         SizedBox(
                           width: 80.9.h,
                           height: 4.w,
@@ -400,10 +416,11 @@ class LogInScreen extends GetView<LoginController> {
                                         color: Themes.rightIcon,
                                       ),
                                       checkedColor: Colors.white,
-                                      isChecked: controller.rememberMe.value,
+                                      isChecked:
+                                          controller.checkBoxStatus.value,
                                       onTap: (value) {
                                         buttonAudio("song_assets/bubble.mp3");
-                                        controller.toggleRememberMe(value!);
+                                        controller.changeCheckBox();
                                       },
                                       border: Border.all(
                                         width: 1.5.sp,
@@ -455,8 +472,7 @@ class LogInScreen extends GetView<LoginController> {
                                 lineHeight: 19.71,
                                 borderColor: Themes.borderButtonColor,
                                 fontColor: Themes.darkGreenColor,
-                                buttonColor:
-                                    Themes.createNewAccountButtonColor,
+                                buttonColor: Themes.createNewAccountButtonColor,
                                 hasColor: true)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
@@ -469,5 +485,25 @@ class LogInScreen extends GetView<LoginController> {
             ),
     );
   }
-}
 
+  void onClickLogin() async {
+    EasyLoading.show(status: 'Loading....', dismissOnTap: true);
+     controller.userLogin(email: controller.email, password: controller.password, phoneNumber: controller.mobileNumber);
+    if (controller.message=='Logged in successfully.') {
+      EasyLoading.showSuccess('Success');
+     // Get.offAllNamed(Routes.AUTHENTICATED);
+        buttonAudio("song_assets/tada.mp3");
+                                          Get.lazyPut(
+                                              () => SuccessController());
+                                          Get.bottomSheet(
+                                            backgroundColor:
+                                                Themes.backGroundDialogColor,
+                                            const SuccessBottomSheet(),
+                                          );
+    }  else {
+      EasyLoading.showError('Error',
+          duration: const Duration(seconds: 3), dismissOnTap: true);
+      print("*********** Error here ************");
+    }
+  }
+}

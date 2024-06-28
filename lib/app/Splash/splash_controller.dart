@@ -1,11 +1,20 @@
-
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:temp_task2/native_service/get_storage.dart';
 
 import '../../routes/app_routes.dart';
 
 class SplashController extends GetxController {
-  final getStorage = GetStorage();
+  late UserStorage storage;
+
+  @override
+  void onInit() async {
+    storage = UserStorage();
+
+   // String? token = await storage.read('token');
+
+    super.onInit();
+  }
 
   @override
   Future<void> onReady() async {
@@ -19,6 +28,14 @@ class SplashController extends GetxController {
         Routes.LOGIN,
       );
     });
+  }
+//maybe for delete
+  Future<void> checkToken() async {
+    String? token = await storage.read('token');
+    print('Here is the token at spalsh $token');
+    if(token!=null){}
+    else{}
+
   }
 /*
 @override

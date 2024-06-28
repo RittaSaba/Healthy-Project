@@ -7,6 +7,7 @@ import '../../core/components/custom_text_button.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
+import 'log_out.dart';
 import 'logout_controller.dart';
 
 class LogOutDialog extends GetView<LogOutController> {
@@ -83,6 +84,7 @@ class LogOutDialog extends GetView<LogOutController> {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
+                              controller.logOut();
                             },
                             borderColor: Themes.logInButtonColor,
                             text: 'Yes,Log Me out',

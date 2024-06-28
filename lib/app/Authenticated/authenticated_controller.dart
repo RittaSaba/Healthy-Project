@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
+import 'authenticated_service.dart';
+
 class AuthenticatedController extends GetxController {
+  // TextEditingController
   TextEditingController txt1 = TextEditingController();
   TextEditingController txt2 = TextEditingController();
   TextEditingController txt3 = TextEditingController();
@@ -9,17 +12,15 @@ class AuthenticatedController extends GetxController {
   TextEditingController txt5 = TextEditingController();
   TextEditingController txt6 = TextEditingController();
 
-  // var messageOtpCode=''.obs;
-  @override
-  void onInit() async {
-    super.onInit();
-    // print(SmsAutoFill().getAppSignature);
-  }
+  //call AuthService
+  AuthService service = AuthService();
+  var authStatus = false;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  //vars of api response
+  var message;
+  var statusCodeOfResponse;
+
+  // var messageOtpCode=''.obs;
 
   @override
   void onClose() {
@@ -33,4 +34,19 @@ class AuthenticatedController extends GetxController {
     super.onClose();
     // SmsAutoFill().unregisterListener();
   }
+
+//Verification Code function
+
+/*  Future<void> verificationCodeOnClick() async {
+    String code =
+        txt1.text + txt2.text + txt3.text + txt4.text + txt5.text + txt6.text;
+    authStatus = await service.verificationCode(code);
+    statusCodeOfResponse = await service.statusCodeOfResponse;
+    message = service.message;
+    if (message is List) {
+      String temp = '';
+      for (String s in message) temp += s + '\n';
+      message = temp;
+    }
+  }*/
 }

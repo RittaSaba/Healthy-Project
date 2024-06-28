@@ -13,7 +13,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.isPassword,
     required this.labelText,
     required this.hintText,
-    this.onChange,
+    required this.onChange,
     // InkWell? suffixPressed,
     this.validate,
     this.focusNode,
@@ -29,7 +29,7 @@ class CustomTextFormField extends StatelessWidget {
   Widget? suffixIcon;
 
   VoidCallback? onSubmit; //(String)
-  VoidCallback? onChange; //(String)
+  final Function(String) onChange; //(String)
   // InkWell? suffixPressed;
 
   @override
@@ -55,7 +55,7 @@ class CustomTextFormField extends StatelessWidget {
               validator: validate,
 
 //   onFieldSubmitted: onSubmit,
-// onChanged: onChange,
+              onChanged: onChange,
               textAlign: TextAlign.left,
               style: GoogleFonts.getFont(
                 'Cabin',
@@ -160,7 +160,7 @@ class CustomTextFormField extends StatelessWidget {
               validator: validate,
 
 //   onFieldSubmitted: onSubmit,
-// onChanged: onChange,
+              onChanged: onChange,
               textAlign: TextAlign.left,
               style: GoogleFonts.getFont(
                 'Cabin',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:temp_task2/app/Authenticated/authenticated_controller.dart';
@@ -9,6 +10,8 @@ import '../../core/components/custom_text_button.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
+import '../Success/success_bottom_sheet.dart';
+import '../Success/success_controller.dart';
 import '../WrongMessage/wrong_message_dialog.dart';
 
 class AuthenticatedScreen extends GetView<AuthenticatedController> {
@@ -141,7 +144,8 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                           borderColor: Themes.borderButtonColor,
                           onSubmit: () {
                             buttonAudio("song_assets/message1.mp3");
-                            Get.dialog(const WrongMessageDialog());
+                            onClickVerificationCode();
+                            //  Get.dialog(const WrongMessageDialog());
                           },
                           width: 20.w,
                           height: 2.6.h,
@@ -306,5 +310,22 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
               ),
             ),
     );
+  }
+
+  void onClickVerificationCode() async {
+  /*  EasyLoading.show(status: 'Loading....', dismissOnTap: true);
+    await controller.verificationCodeOnClick();
+    if (controller.statusCodeOfResponse == 200) {
+      buttonAudio("song_assets/tada.mp3");
+      Get.lazyPut(() => SuccessController());
+      Get.bottomSheet(
+        backgroundColor: Themes.backGroundDialogColor,
+        const SuccessBottomSheet(),
+      );
+    } else {
+      EasyLoading.showError('Auth error',
+          duration: const Duration(seconds: 10), dismissOnTap: true);
+      print("*********** Error here ************");
+    }*/
   }
 }
