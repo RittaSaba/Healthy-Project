@@ -11,8 +11,6 @@ class SplashController extends GetxController {
   void onInit() async {
     storage = UserStorage();
 
-   // String? token = await storage.read('token');
-
     super.onInit();
   }
 
@@ -29,27 +27,12 @@ class SplashController extends GetxController {
       );
     });
   }
+
 //maybe for delete
   Future<void> checkToken() async {
     String? token = await storage.read('token');
     print('Here is the token at spalsh $token');
-    if(token!=null){}
-    else{}
-
+    if (token != null) {
+    } else {}
   }
-/*
-@override
-  void onReady() {
-    super.onReady();
-
-    if (getStorage.read("id") != null) {
-      Future.delayed(Duration(microseconds: 9000), () {
-        Get.offAllNamed(Routes.HOME);
-      });
-    } else {
-      Future.delayed(Duration(microseconds: 9000), () {
-        Get.offAllNamed(Routes.LOGIN);
-      });
-    }
-  }*/
 }

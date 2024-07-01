@@ -73,7 +73,7 @@ class WrongMessageDialog extends StatelessWidget {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
-                              Get.back;
+                              Get.back();
                             },
                             borderColor: Themes.borderButtonColor,
                             text: 'Try again',
@@ -154,7 +154,7 @@ class WrongMessageDialog extends StatelessWidget {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
-                              Get.back;
+                              Get.back();
                             },
                             borderColor: Themes.borderButtonColor,
                             text: 'Try again',

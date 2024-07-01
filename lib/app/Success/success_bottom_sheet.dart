@@ -14,6 +14,7 @@ import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_confetti_widget.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
+import '../LogOut/logout_controller.dart';
 
 class SuccessBottomSheet extends GetView<SuccessController> {
   const SuccessBottomSheet({Key? key}) : super(key: key);
@@ -24,7 +25,7 @@ class SuccessBottomSheet extends GetView<SuccessController> {
         getScreenOrientation(MediaQuery.of(context));
     return deviceOrientation == Orientation.portrait
         ? SizedBox(
-            height: 44.h,
+            height: 47.h,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,6 +72,7 @@ class SuccessBottomSheet extends GetView<SuccessController> {
                 CustomTextButton(
                   onSubmit: () {
                     buttonAudio("song_assets/message1.mp3");
+                    Get.lazyPut(()=>LogOutController());
                     Get.dialog(const LogOutDialog()); //(0.5, 0.36);
                   },
                   borderColor: Themes.borderButtonColor,
@@ -145,6 +147,7 @@ class SuccessBottomSheet extends GetView<SuccessController> {
                 CustomTextButton(
                   onSubmit: () {
                     buttonAudio("song_assets/message1.mp3");
+                    Get.lazyPut(()=>LogOutController());
                     Get.dialog(const LogOutDialog());
                   },
                   borderColor: Themes.borderButtonColor,

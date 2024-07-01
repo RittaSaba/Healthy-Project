@@ -6,6 +6,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:temp_task2/app/LogIn/login_controller.dart';
 import 'package:temp_task2/app/SignUp/sign_up_controller.dart';
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
@@ -14,6 +15,9 @@ import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../routes/app_routes.dart';
 import '../../theme/themes.dart';
+import '../Success/success_bottom_sheet.dart';
+import '../Success/success_controller.dart';
+import '../WrongMessage/wrong_message_dialog.dart';
 
 class SignUpScreen extends GetView<SignUpController> {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -53,11 +57,11 @@ class SignUpScreen extends GetView<SignUpController> {
                                 backgroundColor:
                                     Colors.transparent.withOpacity(0),
                                 radius: 5.25.h,
-                                backgroundImage: controller.imagePath.isNotEmpty
+                                backgroundImage: controller.imagePath.value.isNotEmpty
                                     ? FileImage(File(controller.getStorage
                                         .read('profile image')))
                                     : null,
-                                child: controller.imagePath.isNotEmpty
+                                child: controller.imagePath.value.isNotEmpty
                                     ? null
                                     : SvgPicture.asset(
                                         'assets/images/camera.svg',
@@ -355,33 +359,7 @@ class SignUpScreen extends GetView<SignUpController> {
                                 } else {
                                   onClickRegister();
                                 }
-                              } /* async {
-                      if (controller.signupFormKey.currentState!.validate()) {
-                        // LoadingOverlay.show(message: 'Registering...');
-                        print('Registering');
-                        try {
-                          ///  await controller.signup();
-
-                          controller.signupFormKey.currentState!.save();
-                          log('response signup');
-
-                          Get.offAllNamed(Routes.HOME);
-                        } catch (err, _) {
-                          printError(info: err.toString());
-                          // LoadingOverlay.hide();
-                          Get.snackbar(
-                            "Error",
-                            err.toString(),
-                            snackPosition: SnackPosition.TOP,
-                            backgroundColor: Colors.red.withOpacity(.75),
-                            colorText: Colors.white,
-                            icon: const Icon(Icons.error, color: Colors.white),
-                            shouldIconPulse: true,
-                            barBlur: 20,
-                          );
-                        } finally {}
-                      }
-                    }*/
+                              }
                               ,
                               text: 'Sign up',
                               borderRadiusCircular: 50,
@@ -416,7 +394,7 @@ class SignUpScreen extends GetView<SignUpController> {
                               height: 1.5.h,
                               onPressed: () {
                                 buttonAudio("song_assets/bubble.mp3");
-                                Get.toNamed(Routes.LOGIN);
+                                Get.offAllNamed(Routes.LOGIN);
                               },
                               child: CustomMontagaText(
                                   text: 'Log in',
@@ -464,11 +442,11 @@ class SignUpScreen extends GetView<SignUpController> {
                                 backgroundColor:
                                     Colors.transparent.withOpacity(0),
                                 radius: 5.25.h,
-                                backgroundImage: controller.imagePath.isNotEmpty
+                                backgroundImage: controller.imagePath.value.isNotEmpty
                                     ? FileImage(File(controller.getStorage
                                         .read('profile image')))
                                     : null,
-                                child: controller.imagePath.isNotEmpty
+                                child: controller.imagePath.value.isNotEmpty
                                     ? null
                                     : SvgPicture.asset(
                                         'assets/images/camera.svg',
@@ -769,33 +747,7 @@ class SignUpScreen extends GetView<SignUpController> {
                                 } else {
                                   Get.toNamed(Routes.AUTHENTICATED);
                                 }
-                              } /* async {
-                      if (controller.signupFormKey.currentState!.validate()) {
-                        // LoadingOverlay.show(message: 'Registering...');
-                        print('Registering');
-                        try {
-                          ///  await controller.signup();
-
-                          controller.signupFormKey.currentState!.save();
-                          log('response signup');
-
-                          Get.offAllNamed(Routes.HOME);
-                        } catch (err, _) {
-                          printError(info: err.toString());
-                          // LoadingOverlay.hide();
-                          Get.snackbar(
-                            "Error",
-                            err.toString(),
-                            snackPosition: SnackPosition.TOP,
-                            backgroundColor: Colors.red.withOpacity(.75),
-                            colorText: Colors.white,
-                            icon: const Icon(Icons.error, color: Colors.white),
-                            shouldIconPulse: true,
-                            barBlur: 20,
-                          );
-                        } finally {}
-                      }
-                    }*/
+                              }
                               ,
                               text: 'Sign up',
                               borderRadiusCircular: 50,
@@ -832,7 +784,7 @@ class SignUpScreen extends GetView<SignUpController> {
                               height: 1.5.h,
                               onPressed: () {
                                 buttonAudio("song_assets/bubble.mp3");
-                                Get.toNamed(Routes.LOGIN);
+                                Get.offAllNamed(Routes.LOGIN);
                               },
                               child: CustomMontagaText(
                                   text: 'Log in',
@@ -853,9 +805,11 @@ class SignUpScreen extends GetView<SignUpController> {
     );
   }
 
+
   void onClickRegister() async {
     EasyLoading.show(status: 'Loading....', dismissOnTap: true);
-    controller.userRegister(
+
+    bool registerSuccess = await controller.userRegister(
         name: controller.userName,
         email: controller.email,
         password: controller.password,
@@ -864,14 +818,25 @@ class SignUpScreen extends GetView<SignUpController> {
         imagePathing: controller.imagePathing,
         imageName: controller.imageName,
         filePath: controller.filePathing,
-        fileName: controller.fileName);
-    if (controller.message == 'User created.') {
-      EasyLoading.showSuccess(controller.message);
-      Get.offAllNamed(Routes.AUTHENTICATED);
+        fileName: controller.fileName
+    );
+
+    EasyLoading.dismiss(); // Dismiss the loading indicator
+
+    if (registerSuccess) {
+      controller.storage.save('email',controller.email);
+      print('saved email is user storage');
+      print(controller.storage.read('email'));
+      buttonAudio("song_assets/bubble.mp3");
+
+
+       Get.offAllNamed(Routes.AUTHENTICATED);
+
+
+      EasyLoading.dismiss(); // Dismiss the loading indicator
     } else {
-      print(controller.message);
-      EasyLoading.showError('Error',
-          duration: const Duration(seconds: 10), dismissOnTap: true);
+    //  EasyLoading.showError('Error', duration: const Duration(seconds: 3), dismissOnTap: true);
+        Get.dialog(const WrongMessageDialog());
       print("*********** Error here ************");
     }
   }

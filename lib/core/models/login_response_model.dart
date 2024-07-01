@@ -1,37 +1,25 @@
-// To parse this JSON data, do
-//
-//     final loginModel = loginModelFromJson(jsonString);
+class LoginResponseModel {
+  String? status;
+  String? message;
+  String? accessToken;
+  String? refreshToken;
 
-import 'dart:convert';
+  LoginResponseModel(
+      {this.status, this.message, this.accessToken, this.refreshToken});
 
-LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str));
+  LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    status = json['data']['status'];
+    message = json['message'];
+    accessToken = json['data']['access_token'];
+    refreshToken = json['data']['refresh_token'];
+  }
 
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
-
-class LoginModel {
-  String status;
-  String message;
-  String accessToken;
-  String refreshToken;
-
-  LoginModel({
-    required this.status,
-    required this.message,
-    required this.accessToken,
-    required this.refreshToken,
-  });
-
-  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-    status: json["status"],
-    message: json["message"],
-    accessToken: json["access_token"],
-    refreshToken: json["refresh_token"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "access_token": accessToken,
-    "refresh_token": refreshToken,
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    data['access_token'] = this.accessToken;
+    data['refresh_token'] = this.refreshToken;
+    return data;
+  }
 }

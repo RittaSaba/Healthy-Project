@@ -1,15 +1,19 @@
 import 'dart:developer';
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:temp_task2/app/SignUp/sign_up_model.dart';
+import 'package:temp_task2/core/models/sign_up_model.dart';
 import '../../config/api_services.dart';
 import '../../config/end_points.dart';
+import '../../native_service/get_storage.dart';
 
 class SignUpController extends GetxController {
   final getStorage = GetStorage();
+  late UserStorage storage;
+  int? statusCode = 0;
 
   //vars of screen
   final userNameController = TextEditingController();
@@ -46,13 +50,7 @@ class SignUpController extends GetxController {
 
   late SignUpResponseModel signUpResponseModel;
 
-  // late XFile image;
-  // late XFile file;
 
-  //vars of   SignUp Service
-  // ApiServices servicesWithDio = ApiServices();
-//  SignUpService service = SignUpService();
-  var statusCodeOfResponse;
 
   //vars of api response
   String message = '';
@@ -69,13 +67,15 @@ class SignUpController extends GetxController {
     filePathing = '';
     imagePathing = '';
     imageName = '';
-
+    storage=UserStorage();
     // _addListener();
     // textFieldFocusNode.hasFocus = false;
     super.onInit();
   }
 
-  Future userRegister({
+
+
+  Future<bool> userRegister({
     required String name,
     required String email,
     required String password,
@@ -86,106 +86,53 @@ class SignUpController extends GetxController {
     required String filePath,
     required String fileName,
   }) async {
-    print(name);
-    print(email);
-    print(password);
-    print(passwordConfirmation);
-    print(phoneNumber);
-    DioHelper.register(
-            name: name,
-            email: email,
-            password: password,
-            passwordConfirmation: passwordConfirmation,
-            phoneNumber: phoneNumber,
-            imagePathing: imagePathing,
-            imageName: imageName,
-            filePathing: filePath,
-            fileName: fileName)
-        .then((value) {
-      print(value.data);
-     // signUpResponseModel = SignUpResponseModel.fromJson(value.data);
-     // message = signUpResponseModel.message.toString();
-     // print(message);
-    }).catchError((error) {
-      print(error);
-    });
+    print('User Register:');
+    print('Email: $email');
+    print('Password: $password');
+    print('Phone Number: $phoneNumber');
+    print('passwordConfirmation : $passwordConfirmation');
+    print('name: $name');
+    print('imageName: $imageName');
+    print('imagePathing: $imagePathing');
+    print('fileName: $fileName');
+    print('filePath: $filePath');
+
+    try {
+      dynamic response =await DioHelper.postRegisterData(
+          name: name,
+          email: email,
+          password: password,
+          passwordConfirmation: passwordConfirmation,
+          phoneNumber: phoneNumber,
+          imagePathing: imagePathing,
+          imageName: imageName,
+          filePathing: filePath,
+          fileName: fileName);
+
+
+      return true; // Indicate success
+    } catch (error) {
+      if (error is DioException) {
+        print('DioException occurred:');
+        print(error.message);
+
+        if (error.response != null) {
+          print('Response data:');//here i have to print the error to the user
+          print(error.response?.data['errors']);
+          print('Status code:');
+          print(error.response?.statusCode);
+          statusCode = error.response?.statusCode!;
+        }
+      } else {
+        print('An unexpected error occurred:');
+        print(error);
+      }
+      return false; // Indicate failure
+    }
   }
 
-//Register OnClick Function
-  /* Future registerOnClick() async {
 
-  try{
 
-    // print(jsonEncode(image));
-    // convertImage(image);
-    // convertFile(file);
-    await service.sendImage(name: userName,
-        email: email,
-        password: password,
-        passwordConfirmation: confirmPassword,
-        phoneNumber: mobileNumber,
-        certificate: file,
-         imageProfilePathing: imagePathing) ;
-message=signUpModel.message;
-print(message);
-    // message = service.message;
-    // statusCodeOfResponse = service.statusCodeOfResponse;
-    // if (message is List) {
-    //   String temp = '';
-    //   for (String s in message)
-    //     temp += s + '\n';
-    //   message = temp;
-    // }
-    // print('message is : $message');
-  }catch(e){
-    return Future.error(e);
-
-  }
-  }*/
-
-/*
-  SignupController(AuthApiService authenticationService)
-      : super(authenticationService);*/
-
-  // void _addListener() {
-  //   usernameFocusNode.addListener(() {
-  //     log('usernameFocusNode-----${usernameFocusNode.hasFocus}');
-  //     if (!usernameFocusNode.hasFocus) {
-  //       userNameController.currentState!.validate();
-  //       // fieldLostFocus = usernameController.hashCode.toString();
-  //     }
-  //   });
-  //   emailFocusNode.addListener(() {
-  //     log('emailFocusNode-----${emailFocusNode.hasFocus}');
-  //     if (!emailFocusNode.hasFocus) {
-  //       formEmailFieldKey.currentState!.validate();
-  //     }
-  //   });
-  //   passwordFocusNode.addListener(() {
-  //     if (!passwordFocusNode.hasFocus) {
-  //       formPasswordFieldKey.currentState!.validate();
-  //     }
-  //   });
-  //   confirmPasswordFocusNode.addListener(() {
-  //     if (!confirmPasswordFocusNode.hasFocus) {
-  //       formConfirmPasswordFieldKey.currentState!.validate();
-  //     }
-  //   });
-  // }
-
-  // Future convertImage(var image) async {
-  //   Uint8List imageBytes = await image.readAsBytes(); //convert to bytes
-  //   String base64string = base64.encode(
-  //       imageBytes); //convert bytes to base64 string
-  //   imagePathing = base64string;
-  // }
-  //
-  // Future convertFile(var file) async {
-  //   Uint8List fileBytes = await image.readAsBytes(); //convert to bytes
-  //   String base64string = base64.encode(
-  //       fileBytes); //convert bytes to base64 string
-  //   filePathing = base64string;
-  // }
 
   @override
   void onClose() {
@@ -203,57 +150,22 @@ print(message);
     super.onClose();
   }
 
-/*Future<void> signup() async {
-    // log('${emailController.text}, ${passwordController.text}');
-    if (signupFormKey.currentState!.validate()) {
-      try {
-        var data = <String, String>{
-          'username': userNameController.text,
-          'email': emailController.text,
-        };
-        if (ConfigAPI.loginWithPassword) {
-          data = {
-            ...data,
-            'password': passwordController.text,
-            'confirmPassword': confirmPasswordController.text,
-          };
-        }
-        await signUp(data);
-        if (ConfigAPI.loginWithPassword) {
-          signIn(userNameController.text, passwordController.text);
-        }
-      } catch (err, _) {
-        // message = 'There is an issue with the app during request the data, '
-        //         'please contact admin for fixing the issues ' +
 
-        passwordController.clear();
-        confirmPasswordController.clear();
-        rethrow;
-      }
-    } else {
-      throw Exception('An error occurred, invalid inputs value');
-    }
-  }*/
 //Function called by screen
   Future getImage() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
     if (result != null) {
       File file = File(result.files.single.path ?? "");
+      getStorage.write('profile image', result.files.single.path);
       imageName = file.path.split('/').last;
       imagePathing = file.path;
+      imagePath.value=imagePathing;
       getStorage.write('profile image', file.path.toString());
+      imagePath=imagePathing.obs;
     } else {
       print("result image is null");
     }
-    //  image = (await picker.pickImage(source: ImageSource.gallery))!;
-    //   if (image.path.isNotEmpty) {
-    //     getStorage.write('profile image', image.path.toString());
-    //
-    //     imagePath.value = image.path.toString();
-    //imagePathing = image.path.toString();
-    //     print("image pathing");
-    //     print(imagePathing);
-    //   }
+
   }
 
   void openFile() async {

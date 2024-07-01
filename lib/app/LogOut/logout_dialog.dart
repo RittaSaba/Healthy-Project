@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
+import '../../routes/app_routes.dart';
 import '../../theme/themes.dart';
-import 'log_out.dart';
+import '../WrongMessage/wrong_message_dialog.dart';
 import 'logout_controller.dart';
 
 class LogOutDialog extends GetView<LogOutController> {
@@ -62,6 +64,7 @@ class LogOutDialog extends GetView<LogOutController> {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
+                              Get.back();
                             },
                             borderColor: Themes.logInButtonColor,
                             text: 'No',
@@ -84,7 +87,7 @@ class LogOutDialog extends GetView<LogOutController> {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
-                              controller.logOut();
+                              onClickLogoutCode();
                             },
                             borderColor: Themes.logInButtonColor,
                             text: 'Yes,Log Me out',
@@ -157,6 +160,7 @@ class LogOutDialog extends GetView<LogOutController> {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
+                              Get.back();
                             },
                             borderColor: Themes.logInButtonColor,
                             text: 'No',
@@ -179,6 +183,7 @@ class LogOutDialog extends GetView<LogOutController> {
                     CustomTextButton(
                             onSubmit: () {
                               buttonAudio("song_assets/bubble.mp3");
+                              onClickLogoutCode();
                             },
                             borderColor: Themes.logInButtonColor,
                             text: 'Yes,Log Me out',
@@ -203,5 +208,25 @@ class LogOutDialog extends GetView<LogOutController> {
               ],
             ),
           );
+  }
+
+  void onClickLogoutCode() async {
+    EasyLoading.show(status: 'Loading....', dismissOnTap: true);
+    bool logoutSuccess = await controller.userLogOut();
+
+
+    EasyLoading.dismiss(); // Dismiss the loading indicator
+
+    if (logoutSuccess) {
+
+      buttonAudio("song_assets/bubble.mp3");
+      EasyLoading.showSuccess('Log out Success');
+
+      Get.offAllNamed(Routes.LOGIN);
+    }else {
+      // EasyLoading.showError('Error', duration: const Duration(seconds: 3), dismissOnTap: true);
+        Get.dialog(const WrongMessageDialog());
+      print("*********** Error here ************");
+    }
   }
 }

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../app/Authenticated/authenticated_controller.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
 
 class CustomInputBox extends StatelessWidget {
-  const CustomInputBox({required this.controller, Key? key}) : super(key: key);
+
+   CustomInputBox({required this.controller,required this.onChange, Key? key}) : super(key: key);
   final TextEditingController controller;
+   final Function(String) onChange;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,7 @@ class CustomInputBox extends StatelessWidget {
               maxLength: 1,
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 13.sp,
                   color: Themes.greyColor,
                   fontWeight: FontWeight.w700),
               decoration: InputDecoration(
@@ -42,15 +45,7 @@ class CustomInputBox extends StatelessWidget {
 
                 counterText: '',
               ),
-              onChanged: (value) {
-                if (value.length == 1) {
-                  FocusScope.of(context).nextFocus();
-
-
-                }
-
-
-              },
+              onChanged:onChange,
             ),
           )
         : Container(
@@ -84,11 +79,7 @@ class CustomInputBox extends StatelessWidget {
 
                 counterText: '',
               ),
-              onChanged: (value) {
-                if (value.length == 1) {
-                  FocusScope.of(context).nextFocus();
-                }
-              },
+              onChanged:onChange,
             ),
           );
   }

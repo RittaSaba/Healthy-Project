@@ -1,21 +1,20 @@
 import 'dart:developer';
 
 import 'package:confetti/confetti.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:temp_task2/app/LogIn/login_service.dart';
 import 'package:temp_task2/config/api_services.dart';
 import 'package:temp_task2/native_service/get_storage.dart';
 
 import '../../config/end_points.dart';
-import '../../core/models/user.dart';
-import '../../routes/app_routes.dart';
-import 'login_model_response.dart';
+import '../../core/models/login_response_model.dart';
 
 class LoginController extends GetxController {
   late UserStorage storage;
- // final getStorage = GetStorage();
+
+  // final getStorage = GetStorage();
 
   //vars of screen
   final signInFormKey = GlobalKey<FormState>();
@@ -23,7 +22,7 @@ class LoginController extends GetxController {
   final mobileNumberController = TextEditingController();
   final passwordController = TextEditingController();
   var checkBoxStatus;
-
+  int? statusCode = 0;
   RxBool isPasswordHidden = true.obs;
 
   //vars of api call
@@ -34,9 +33,9 @@ class LoginController extends GetxController {
   var statusCodeOfResponse;
   late String message;
 
-  //vars of   LogIn Service
-  late LogInService service;
-  late LogInResponseModel logInResponseModel;
+
+  late LoginResponseModel logInResponseModel;
+
   @override
   void onInit() {
     email = '';
@@ -45,7 +44,6 @@ class LoginController extends GetxController {
     loginStatus = false;
     statusCodeOfResponse = '';
     message = '';
-    service = LogInService();
     checkBoxStatus = false.obs;
     storage = UserStorage();
     super.onInit();
@@ -60,27 +58,59 @@ class LoginController extends GetxController {
     print('** token is **:$test');
   }
 
-  //Dio function call
-  void userLogin(
-      {required String email,
-      required String password,
-      required String phoneNumber}) {
-    print(email);
-    print(password);
-    print(phoneNumber);
-    DioHelper.postData(url: LOGIN, data: {
-      'email': email,
-      'password': password,
-      'phone_number': phoneNumber,
-    }).then((value) { print(value.data);
-    logInResponseModel=LogInResponseModel.fromJson(value.data);
-    message=logInResponseModel.message.toString();
-    storage.save('access_token', logInResponseModel.accessToken.toString());
-    storage.save('refresh_token', logInResponseModel.refreshToken.toString());
-    print(message);
-    }).catchError((error) {
-      print(error);
-    });
+
+  Future<bool> userLogin({
+    required String email,
+    required String password,
+    required String phoneNumber,
+  }) async {
+    print('User Login:');
+    print('Email: $email');
+    print('Password: $password');
+    print('Phone Number: $phoneNumber');
+
+    try {
+      dynamic response = await DioHelper.postData(url: 'api/auth/login', data: {
+        'email': email,
+        'password': password,
+        'phone_number': phoneNumber,
+      });
+
+      print('Response:');
+      print(response.data);
+
+      LoginResponseModel logInResponseModel =
+          LoginResponseModel.fromJson(response.data);
+      print("Status Code ");
+      print('${logInResponseModel.status}');
+print('access_token ');
+print('${logInResponseModel.accessToken}');
+      print("refresh_token");
+      print('${logInResponseModel.refreshToken}');
+
+storage.save('access_token', '${logInResponseModel.accessToken}');
+      storage.save('refresh_token','${logInResponseModel.refreshToken}');
+
+      print('Message: ${logInResponseModel.message}');
+      return true; // Indicate success
+    } catch (error) {
+      if (error is DioException) {
+        print('DioException occurred:');
+        print(error.message);
+
+        if (error.response != null) {
+          print('Response data:');
+          print(error.response?.data);
+          print('Status code:');
+          print(error.response?.statusCode);
+          statusCode = error.response?.statusCode!;
+        }
+      } else {
+        print('An unexpected error occurred:');
+        print(error);
+      }
+      return false; // Indicate failure
+    }
   }
 
   Future<void> loginOnClick() async {

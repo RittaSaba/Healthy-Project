@@ -10,6 +10,7 @@ import '../../core/components/custom_text_button.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
+import '../LogIn/login_controller.dart';
 import '../Success/success_bottom_sheet.dart';
 import '../Success/success_controller.dart';
 import '../WrongMessage/wrong_message_dialog.dart';
@@ -78,37 +79,100 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CustomInputBox(controller: controller.txt1)
+                        CustomInputBox(
+                          controller: controller.txt1,
+                          onChange: (value) {
+                            if (value.length == 1) {
+                              controller.fullFields += 1;
+                              FocusScope.of(context).nextFocus();
+                              if (controller.fullFields == 6) {
+                                onClickVerifyEmail();
+                              }
+                            } else if (value.isEmpty) {
+                              controller.fullFields -= 1;
+                            }
+                          },
+                        )
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt2)
+                        CustomInputBox(controller: controller.txt2, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt3)
+                        CustomInputBox(controller: controller.txt3, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt4)
+                        CustomInputBox(controller: controller.txt4, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt5)
+                        CustomInputBox(controller: controller.txt5, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt6)
+                        CustomInputBox(controller: controller.txt6, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            // FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
@@ -126,7 +190,7 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         width: 15.w,
                         height: 3.8.h,
                         child: CustomMontagaText(
-                            text: '03:00',
+                            text: '66:66',
                             size: 16.sp,
                             lineHeight: 2.42,
                             fontWeight: 'Cabin',
@@ -144,8 +208,8 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                           borderColor: Themes.borderButtonColor,
                           onSubmit: () {
                             buttonAudio("song_assets/message1.mp3");
-                            onClickVerificationCode();
-                            //  Get.dialog(const WrongMessageDialog());
+                            onClickResendCode();
+
                           },
                           width: 20.w,
                           height: 2.6.h,
@@ -224,37 +288,98 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CustomInputBox(controller: controller.txt1)
+                        CustomInputBox(controller: controller.txt1, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt2)
+                        CustomInputBox(controller: controller.txt2, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt3)
+                        CustomInputBox(controller: controller.txt3, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt4)
+                        CustomInputBox(controller: controller.txt4, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt5)
+                        CustomInputBox(controller: controller.txt5, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+                            FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
                             .then()
                             .flip(),
-                        CustomInputBox(controller: controller.txt6)
+                        CustomInputBox(controller: controller.txt6, onChange: (value) {
+                          if (value.length == 1) {
+                            controller.fullFields += 1;
+
+                            // FocusScope.of(context).nextFocus();
+                            if (controller.fullFields == 6) {
+                              onClickVerifyEmail();
+                            }
+                          } else if (value.isEmpty) {
+                            controller.fullFields -= 1;
+                          }
+                        },)
                             .animate()
                             .shimmer(duration: const Duration(seconds: 1))
                             .fadeIn(curve: Curves.easeOut)
@@ -271,7 +396,7 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         width: 15.h,
                         height: 3.8.h,
                         child: CustomMontagaText(
-                            text: '03:00',
+                            text: '03:33',
                             size: 16.sp,
                             lineHeight: 2.42,
                             fontWeight: 'Cabin',
@@ -312,20 +437,50 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
     );
   }
 
-  void onClickVerificationCode() async {
-  /*  EasyLoading.show(status: 'Loading....', dismissOnTap: true);
-    await controller.verificationCodeOnClick();
-    if (controller.statusCodeOfResponse == 200) {
+  void onClickVerifyEmail() async {
+    EasyLoading.show(status: 'Loading....', dismissOnTap: true);
+
+    bool verificationSuccess = await controller.userVerifyEmail();
+
+    EasyLoading.dismiss(); // Dismiss the loading indicator
+
+    if (verificationSuccess) {
+      //login api call to save the token
+
+
       buttonAudio("song_assets/tada.mp3");
       Get.lazyPut(() => SuccessController());
       Get.bottomSheet(
-        backgroundColor: Themes.backGroundDialogColor,
         const SuccessBottomSheet(),
+        backgroundColor: Themes.backGroundDialogColor,
       );
     } else {
-      EasyLoading.showError('Auth error',
-          duration: const Duration(seconds: 10), dismissOnTap: true);
+      EasyLoading.showError('Error',
+          duration: const Duration(seconds: 3), dismissOnTap: true);
       print("*********** Error here ************");
-    }*/
+    }
+  }
+
+  void onClickResendCode() async {
+    EasyLoading.show(status: 'Loading....', dismissOnTap: true);
+
+    bool verificationSuccess = await controller.userResendCode();
+
+    EasyLoading.dismiss(); // Dismiss the loading indicator
+
+    if (verificationSuccess) {
+
+
+      buttonAudio("song_assets/tada.mp3");
+      Get.lazyPut(() => SuccessController());
+      Get.bottomSheet(
+        const SuccessBottomSheet(),
+        backgroundColor: Themes.backGroundDialogColor,
+      );
+    } else {
+
+        Get.dialog(const WrongMessageDialog());
+      print("*********** Error here ************");
+    }
   }
 }

@@ -11,8 +11,10 @@ import '../../core/components/custom_text_form_field.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
 import '../../theme/themes.dart';
+import '../Fuls/fuls_dialog.dart';
 import '../Success/success_bottom_sheet.dart';
 import '../Success/success_controller.dart';
+import '../WrongMessage/wrong_message_dialog.dart';
 import 'login_controller.dart';
 
 class LogInScreen extends GetView<LoginController> {
@@ -22,114 +24,114 @@ class LogInScreen extends GetView<LoginController> {
   Widget build(BuildContext context) {
     Get.put(LoginController());
     Orientation deviceOrientation =
-        getScreenOrientation(MediaQuery.of(context));
+    getScreenOrientation(MediaQuery.of(context));
     return Scaffold(
       body: deviceOrientation == Orientation.portrait
           ? Container(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
-              decoration:
-                  BoxDecoration(gradient: Themes.backgroundColorGradient),
-              height: double.infinity,
-              width: double.infinity,
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: controller.signInFormKey,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 33.h,
-                          width: 80.w,
-                          child: Image.asset(
-                            'assets/images/image.png',
-                            fit: BoxFit.cover,
-                            height: 35.h,
-                            width: 75.w,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 0.h,
-                        ),
-                        CustomTextFormField(
-                          onChange: (value) {
-                            controller.email = value;
-                          },
-                          isPassword: false,
-                          controller: controller.emailController,
-                          textInputType: TextInputType.emailAddress,
-                          labelText: 'Email',
-                          hintText: 'Enter your email',
-                          validate: (String) {},
-                          suffixIcon: Icon(
-                            Icons.edit,
-                            color: Themes.iconColorAtTextFormField,
-                          ),
-                        )
-                            .animate()
-                            .shimmer(duration: const Duration(seconds: 1))
-                            .fadeIn(curve: Curves.easeOut)
-                            .then()
-                            .flip(),
-                        SizedBox(
-                          height: 2.4.h,
-                        ),
-                        CustomTextFormField(
-                          onChange: (value) {
-                            controller.mobileNumber = value;
-                          },
-                          isPassword: false,
-                          controller: controller.mobileNumberController,
-                          textInputType: TextInputType.phone,
+        padding: EdgeInsets.symmetric(horizontal: 4.w),
+        decoration:
+        BoxDecoration(gradient: Themes.backgroundColorGradient),
+        height: double.infinity,
+        width: double.infinity,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Form(
+              key: controller.signInFormKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 33.h,
+                    width: 80.w,
+                    child: Image.asset(
+                      'assets/images/image.png',
+                      fit: BoxFit.cover,
+                      height: 35.h,
+                      width: 75.w,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 0.h,
+                  ),
+                  CustomTextFormField(
+                    onChange: (value) {
+                      controller.email = value;
+                    },
+                    isPassword: false,
+                    controller: controller.emailController,
+                    textInputType: TextInputType.emailAddress,
+                    labelText: 'Email',
+                    hintText: 'Enter your email',
+                    validate: (String) {},
+                    suffixIcon: Icon(
+                      Icons.edit,
+                      color: Themes.iconColorAtTextFormField,
+                    ),
+                  )
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .fadeIn(curve: Curves.easeOut)
+                      .then()
+                      .flip(),
+                  SizedBox(
+                    height: 2.4.h,
+                  ),
+                  CustomTextFormField(
+                    onChange: (value) {
+                      controller.mobileNumber = value;
+                    },
+                    isPassword: false,
+                    controller: controller.mobileNumberController,
+                    textInputType: TextInputType.phone,
 
-                          labelText: 'Mobile Number',
-                          hintText: 'Enter your mobile phone',
-                          validate: (String) {},
-                          //  suffix_icon: Icons.cancel,
-                        )
-                            .animate()
-                            .shimmer(duration: const Duration(seconds: 1))
-                            .fadeIn(curve: Curves.easeOut)
-                            .then()
-                            .flip(),
-                        SizedBox(
-                          height: 2.4.h,
+                    labelText: 'Mobile Number',
+                    hintText: 'Enter your mobile phone',
+                    validate: (String) {},
+                    //  suffix_icon: Icons.cancel,
+                  )
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .fadeIn(curve: Curves.easeOut)
+                      .then()
+                      .flip(),
+                  SizedBox(
+                    height: 2.4.h,
+                  ),
+                  Obx(
+                        () => CustomTextFormField(
+                      onChange: (value) {
+                        controller.password = value;
+                      },
+                      isPassword: controller.isPasswordHidden.value,
+                      suffixIcon: InkWell(
+                        child: Icon(
+                          controller.isPasswordHidden.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Themes.iconColorAtTextFormField,
                         ),
-                        Obx(
-                          () => CustomTextFormField(
-                            onChange: (value) {
-                              controller.password = value;
-                            },
-                            isPassword: controller.isPasswordHidden.value,
-                            suffixIcon: InkWell(
-                              child: Icon(
-                                controller.isPasswordHidden.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: Themes.iconColorAtTextFormField,
-                              ),
-                              onTap: () {
-                                buttonAudio("song_assets/bubble.mp3");
-                                controller.isPasswordHidden.value =
-                                    !controller.isPasswordHidden.value;
-                              },
-                            ),
-                            controller: controller.passwordController,
-                            textInputType: TextInputType.visiblePassword,
-                            labelText: 'Password',
-                            hintText: 'Enter your password',
-                            validate: (String) {},
-                          )
-                              .animate()
-                              .shimmer(duration: const Duration(seconds: 1))
-                              .fadeIn(curve: Curves.easeOut)
-                              .then()
-                              .flip(),
-                        ),
-                        SizedBox(
-                          height: 2.4.h,
-                        ),
-                       CustomTextButton(
-                                  onSubmit:(){onClickLogin();}, /*controller.checkBoxStatus.value ==
+                        onTap: () {
+                          buttonAudio("song_assets/bubble.mp3");
+                          controller.isPasswordHidden.value =
+                          !controller.isPasswordHidden.value;
+                        },
+                      ),
+                      controller: controller.passwordController,
+                      textInputType: TextInputType.visiblePassword,
+                      labelText: 'Password',
+                      hintText: 'Enter your password',
+                      validate: (String) {},
+                    )
+                        .animate()
+                        .shimmer(duration: const Duration(seconds: 1))
+                        .fadeIn(curve: Curves.easeOut)
+                        .then()
+                        .flip(),
+                  ),
+                  SizedBox(
+                    height: 2.4.h,
+                  ),
+                  CustomTextButton(
+                      onSubmit:(){onClickLogin();}, /*controller.checkBoxStatus.value ==
                                           false
                                       ? () {
                                           buttonAudio("song_assets/error1.mp3");
@@ -151,214 +153,214 @@ class LogInScreen extends GetView<LoginController> {
                                             const SuccessBottomSheet(),
                                           );
                                         },*/
-                                  text: 'Log in',
-                                  borderRadiusCircular: 50,
-                                  width: 80.9.w,
-                                  height: 4.4.h,
-                                  fontSize: 16.sp,
-                                  fontType: 'Montaga',
-                                  fontWeight: '400',
-                                  lineHeight: 19.71,
-                                  borderColor: Themes.borderLogInButtonColor,
-                                  fontColor: Themes.darkGreenColor,
-                                  buttonColor: Themes.logInButtonColor,
-                                  hasColor: true)
-                              .animate()
-                              .shimmer(duration: const Duration(seconds: 1))
-                              .slideX(),
+                      text: 'Log in',
+                      borderRadiusCircular: 50,
+                      width: 80.9.w,
+                      height: 4.4.h,
+                      fontSize: 16.sp,
+                      fontType: 'Montaga',
+                      fontWeight: '400',
+                      lineHeight: 19.71,
+                      borderColor: Themes.borderLogInButtonColor,
+                      fontColor: Themes.darkGreenColor,
+                      buttonColor: Themes.logInButtonColor,
+                      hasColor: true)
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .slideX(),
 
-                        SizedBox(
-                          width: 80.9.w,
-                          height: 4.h,
+                  SizedBox(
+                    width: 80.9.w,
+                    height: 4.h,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                child: Row(
-                                  children: [
-                                    Obx(
-                                      () => RoundCheckBox(
-                                        size: 15.sp,
-                                        uncheckedColor: Colors.white,
-                                        checkedWidget: Icon(
-                                          Icons.check,
-                                          size: 12.sp,
-                                          weight: 20.sp,
-                                          color: Themes.rightIcon,
-                                        ),
-                                        checkedColor: Colors.white,
-                                        isChecked:
-                                            controller.checkBoxStatus.value,
-                                        onTap: (value) {
-                                          buttonAudio("song_assets/bubble.mp3");
-                                          controller.changeCheckBox();
-                                        },
-                                        border: Border.all(
-                                          width: 1.5.sp,
-                                          color: Themes.rightIcon,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 0.5.w,
-                                    ),
-                                    CustomMontagaText(
-                                        text: 'Remember me',
-                                        size: 13.sp,
-                                        lineHeight: 16.02,
-                                        fontWeight: '400',
-                                        color: Themes.darkGreenColor,
-                                        textAlign: TextAlign.left),
-                                  ],
+                              Obx(
+                                    () => RoundCheckBox(
+                                  size: 15.sp,
+                                  uncheckedColor: Colors.white,
+                                  checkedWidget: Icon(
+                                    Icons.check,
+                                    size: 12.sp,
+                                    weight: 20.sp,
+                                    color: Themes.rightIcon,
+                                  ),
+                                  checkedColor: Colors.white,
+                                  isChecked:
+                                  controller.checkBoxStatus.value,
+                                  onTap: (value) {
+                                    buttonAudio("song_assets/bubble.mp3");
+                                    controller.changeCheckBox();
+                                  },
+                                  border: Border.all(
+                                    width: 1.5.sp,
+                                    color: Themes.rightIcon,
+                                  ),
                                 ),
                               ),
-                              MaterialButton(
-                                minWidth: 26.4.w,
-                                height: 1.9.h,
-                                onPressed: () {},
-                                child: CustomCabinText(
-                                    text: 'Forget Password?',
-                                    size: 11.sp,
-                                    lineHeight: 17.01,
-                                    fontWeight: '400',
-                                    color: Themes.darkGreenColor),
+                              SizedBox(
+                                width: 0.5.w,
                               ),
+                              CustomMontagaText(
+                                  text: 'Remember me',
+                                  size: 13.sp,
+                                  lineHeight: 16.02,
+                                  fontWeight: '400',
+                                  color: Themes.darkGreenColor,
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: 15.8.h,
+                        MaterialButton(
+                          minWidth: 26.4.w,
+                          height: 1.9.h,
+                          onPressed: () {},
+                          child: CustomCabinText(
+                              text: 'Forget Password?',
+                              size: 11.sp,
+                              lineHeight: 17.01,
+                              fontWeight: '400',
+                              color: Themes.darkGreenColor),
                         ),
-                        CustomTextButton(
-                                onSubmit: () {
-                                  buttonAudio("song_assets/bubble.mp3");
-
-                                  Get.toNamed(Routes.SIGNUP,
-                                      arguments: Transition.downToUp);
-                                },
-                                text: 'Create new account',
-                                borderRadiusCircular: 50,
-                                width: 80.9.w,
-                                height: 4.4.h,
-                                fontSize: 16.sp,
-                                fontType: 'Montaga',
-                                fontWeight: '400',
-                                lineHeight: 19.71,
-                                borderColor: Themes.borderButtonColor,
-                                fontColor: Themes.darkGreenColor,
-                                buttonColor: Themes.createNewAccountButtonColor,
-                                hasColor: true)
-                            .animate()
-                            .shimmer(duration: const Duration(seconds: 1))
-                            .slideX(),
                       ],
                     ),
                   ),
-                ),
-              ),
-            )
-          : Container(
-              padding: EdgeInsets.symmetric(vertical: 4.w),
-              decoration:
-                  BoxDecoration(gradient: Themes.backgroundColorGradient),
-              height: double.infinity,
-              width: double.infinity,
-              child: Center(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: controller.signInFormKey,
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 80.w,
-                          width: 33.h,
-                          child: Image.asset(
-                            'assets/images/image.png',
-                            fit: BoxFit.cover,
-                            height: 75.w,
-                            width: 35.h,
-                          ),
-                        ),
-                        CustomTextFormField(
-                          onChange: (value) {
-                            controller.email = value;
-                          },
-                          isPassword: false,
-                          controller: controller.emailController,
-                          textInputType: TextInputType.emailAddress,
-                          labelText: 'Email',
-                          hintText: 'Enter your email',
-                          validate: (String) {},
-                          suffixIcon: Icon(
-                            Icons.edit,
-                            color: Themes.iconColorAtTextFormField,
-                          ),
-                        )
-                            .animate()
-                            .shimmer(duration: const Duration(seconds: 1))
-                            .fadeIn(curve: Curves.easeOut)
-                            .then()
-                            .flip(),
-                        SizedBox(
-                          height: 2.4.w,
-                        ),
-                        CustomTextFormField(
-                          onChange: (value) {
-                            controller.mobileNumber = value;
-                          },
-                          isPassword: false,
-                          controller: controller.mobileNumberController,
-                          textInputType: TextInputType.phone,
+                  SizedBox(
+                    height: 15.8.h,
+                  ),
+                  CustomTextButton(
+                      onSubmit: () {
+                        buttonAudio("song_assets/bubble.mp3");
 
-                          labelText: 'Mobile Number',
-                          hintText: 'Enter your mobile phone',
-                          validate: (String) {},
-                          //  suffix_icon: Icons.cancel,
-                        )
-                            .animate()
-                            .shimmer(duration: const Duration(seconds: 1))
-                            .fadeIn(curve: Curves.easeOut)
-                            .then()
-                            .flip(),
-                        SizedBox(
-                          height: 2.4.w,
+                        Get.toNamed(Routes.SIGNUP,
+                            arguments: Transition.downToUp);
+                      },
+                      text: 'Create new account',
+                      borderRadiusCircular: 50,
+                      width: 80.9.w,
+                      height: 4.4.h,
+                      fontSize: 16.sp,
+                      fontType: 'Montaga',
+                      fontWeight: '400',
+                      lineHeight: 19.71,
+                      borderColor: Themes.borderButtonColor,
+                      fontColor: Themes.darkGreenColor,
+                      buttonColor: Themes.createNewAccountButtonColor,
+                      hasColor: true)
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .slideX(),
+                ],
+              ),
+            ),
+          ),
+        ),
+      )
+          : Container(
+        padding: EdgeInsets.symmetric(vertical: 4.w),
+        decoration:
+        BoxDecoration(gradient: Themes.backgroundColorGradient),
+        height: double.infinity,
+        width: double.infinity,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Form(
+              key: controller.signInFormKey,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 80.w,
+                    width: 33.h,
+                    child: Image.asset(
+                      'assets/images/image.png',
+                      fit: BoxFit.cover,
+                      height: 75.w,
+                      width: 35.h,
+                    ),
+                  ),
+                  CustomTextFormField(
+                    onChange: (value) {
+                      controller.email = value;
+                    },
+                    isPassword: false,
+                    controller: controller.emailController,
+                    textInputType: TextInputType.emailAddress,
+                    labelText: 'Email',
+                    hintText: 'Enter your email',
+                    validate: (String) {},
+                    suffixIcon: Icon(
+                      Icons.edit,
+                      color: Themes.iconColorAtTextFormField,
+                    ),
+                  )
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .fadeIn(curve: Curves.easeOut)
+                      .then()
+                      .flip(),
+                  SizedBox(
+                    height: 2.4.w,
+                  ),
+                  CustomTextFormField(
+                    onChange: (value) {
+                      controller.mobileNumber = value;
+                    },
+                    isPassword: false,
+                    controller: controller.mobileNumberController,
+                    textInputType: TextInputType.phone,
+
+                    labelText: 'Mobile Number',
+                    hintText: 'Enter your mobile phone',
+                    validate: (String) {},
+                    //  suffix_icon: Icons.cancel,
+                  )
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .fadeIn(curve: Curves.easeOut)
+                      .then()
+                      .flip(),
+                  SizedBox(
+                    height: 2.4.w,
+                  ),
+                  Obx(
+                        () => CustomTextFormField(
+                      onChange: (value) {
+                        controller.password = value;
+                      },
+                      isPassword: controller.isPasswordHidden.value,
+                      suffixIcon: InkWell(
+                        child: Icon(
+                          controller.isPasswordHidden.value
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                          color: Themes.iconColorAtTextFormField,
                         ),
-                        Obx(
-                          () => CustomTextFormField(
-                            onChange: (value) {
-                              controller.password = value;
-                            },
-                            isPassword: controller.isPasswordHidden.value,
-                            suffixIcon: InkWell(
-                              child: Icon(
-                                controller.isPasswordHidden.value
-                                    ? Icons.visibility_off
-                                    : Icons.visibility,
-                                color: Themes.iconColorAtTextFormField,
-                              ),
-                              onTap: () {
-                                buttonAudio("song_assets/bubble.mp3");
-                                controller.isPasswordHidden.value =
-                                    !controller.isPasswordHidden.value;
-                              },
-                            ),
-                            controller: controller.passwordController,
-                            textInputType: TextInputType.visiblePassword,
-                            labelText: 'Password',
-                            hintText: 'Enter your password',
-                            validate: (String) {},
-                          )
-                              .animate()
-                              .shimmer(duration: const Duration(seconds: 1))
-                              .fadeIn(curve: Curves.easeOut)
-                              .then()
-                              .flip(),
-                        ),
-                        SizedBox(
-                          height: 2.4.w,
-                        ),
-                       CustomTextButton(
-                                  onSubmit:(){onClickLogin();},/* controller.checkBoxStatus.value ==
+                        onTap: () {
+                          buttonAudio("song_assets/bubble.mp3");
+                          controller.isPasswordHidden.value =
+                          !controller.isPasswordHidden.value;
+                        },
+                      ),
+                      controller: controller.passwordController,
+                      textInputType: TextInputType.visiblePassword,
+                      labelText: 'Password',
+                      hintText: 'Enter your password',
+                      validate: (String) {},
+                    )
+                        .animate()
+                        .shimmer(duration: const Duration(seconds: 1))
+                        .fadeIn(curve: Curves.easeOut)
+                        .then()
+                        .flip(),
+                  ),
+                  SizedBox(
+                    height: 2.4.w,
+                  ),
+                  CustomTextButton(
+                      onSubmit:(){onClickLogin();},/* controller.checkBoxStatus.value ==
                                           false
                                       ? () {
                                           buttonAudio("song_assets/error1.mp3");
@@ -379,131 +381,147 @@ class LogInScreen extends GetView<LoginController> {
                                             const SuccessBottomSheet(),
                                           );
                                         },*/
-                                  text: 'Log in',
-                                  borderRadiusCircular: 50,
-                                  width: 80.9.h,
-                                  height: 4.4.h,
-                                  fontSize: 16.sp,
-                                  fontType: 'Montaga',
-                                  fontWeight: '400',
-                                  lineHeight: 19.71,
-                                  borderColor: Themes.borderLogInButtonColor,
-                                  fontColor: Themes.darkGreenColor,
-                                  buttonColor: Themes.logInButtonColor,
-                                  hasColor: true)
-                              .animate()
-                              .shimmer(duration: const Duration(seconds: 1))
-                              .slideX(),
+                      text: 'Log in',
+                      borderRadiusCircular: 50,
+                      width: 80.9.h,
+                      height: 4.4.h,
+                      fontSize: 16.sp,
+                      fontType: 'Montaga',
+                      fontWeight: '400',
+                      lineHeight: 19.71,
+                      borderColor: Themes.borderLogInButtonColor,
+                      fontColor: Themes.darkGreenColor,
+                      buttonColor: Themes.logInButtonColor,
+                      hasColor: true)
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .slideX(),
 
-                        SizedBox(
-                          width: 80.9.h,
-                          height: 4.w,
-                          // margin: EdgeInsets.fromLTRB(16.5, 0, 0, 135),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            // crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Obx(
-                                    () => RoundCheckBox(
-                                      size: 15.sp,
-                                      uncheckedColor: Colors.white,
-                                      checkedWidget: Icon(
-                                        Icons.check,
-                                        size: 12.sp,
-                                        weight: 20.sp,
-                                        color: Themes.rightIcon,
-                                      ),
-                                      checkedColor: Colors.white,
-                                      isChecked:
-                                          controller.checkBoxStatus.value,
-                                      onTap: (value) {
-                                        buttonAudio("song_assets/bubble.mp3");
-                                        controller.changeCheckBox();
-                                      },
-                                      border: Border.all(
-                                        width: 1.5.sp,
-                                        color: Themes.rightIcon,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 0.5.h,
-                                  ),
-                                  CustomMontagaText(
-                                      text: 'Remember me',
-                                      size: 13.sp,
-                                      lineHeight: 16.02,
-                                      fontWeight: '400',
-                                      color: Themes.darkGreenColor,
-                                      textAlign: TextAlign.left),
-                                ],
-                              ),
-                              MaterialButton(
-                                minWidth: 26.4.h,
-                                height: 1.9.w,
-                                onPressed: () {},
-                                child: CustomCabinText(
-                                    text: 'Forget Password?',
-                                    size: 11.sp,
-                                    lineHeight: 17.01,
-                                    fontWeight: '400',
-                                    color: Themes.darkGreenColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15.8.w,
-                        ),
-                        CustomTextButton(
-                                onSubmit: () {
+                  SizedBox(
+                    width: 80.9.h,
+                    height: 4.w,
+                    // margin: EdgeInsets.fromLTRB(16.5, 0, 0, 135),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Obx(
+                                  () => RoundCheckBox(
+                                size: 15.sp,
+                                uncheckedColor: Colors.white,
+                                checkedWidget: Icon(
+                                  Icons.check,
+                                  size: 12.sp,
+                                  weight: 20.sp,
+                                  color: Themes.rightIcon,
+                                ),
+                                checkedColor: Colors.white,
+                                isChecked:
+                                controller.checkBoxStatus.value,
+                                onTap: (value) {
                                   buttonAudio("song_assets/bubble.mp3");
-                                  Get.toNamed(Routes.SIGNUP);
+                                  controller.changeCheckBox();
                                 },
-                                text: 'Create new account',
-                                borderRadiusCircular: 50,
-                                width: 80.9.h,
-                                height: 4.4.h,
-                                fontSize: 16.sp,
-                                fontType: 'Montaga',
+                                border: Border.all(
+                                  width: 1.5.sp,
+                                  color: Themes.rightIcon,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 0.5.h,
+                            ),
+                            CustomMontagaText(
+                                text: 'Remember me',
+                                size: 13.sp,
+                                lineHeight: 16.02,
                                 fontWeight: '400',
-                                lineHeight: 19.71,
-                                borderColor: Themes.borderButtonColor,
-                                fontColor: Themes.darkGreenColor,
-                                buttonColor: Themes.createNewAccountButtonColor,
-                                hasColor: true)
-                            .animate()
-                            .shimmer(duration: const Duration(seconds: 1))
-                            .slideX(),
+                                color: Themes.darkGreenColor,
+                                textAlign: TextAlign.left),
+                          ],
+                        ),
+                        MaterialButton(
+                          minWidth: 26.4.h,
+                          height: 1.9.w,
+                          onPressed: () {},
+                          child: CustomCabinText(
+                              text: 'Forget Password?',
+                              size: 11.sp,
+                              lineHeight: 17.01,
+                              fontWeight: '400',
+                              color: Themes.darkGreenColor),
+                        ),
                       ],
                     ),
                   ),
-                ),
+                  SizedBox(
+                    height: 15.8.w,
+                  ),
+                  CustomTextButton(
+                      onSubmit: () {
+                        buttonAudio("song_assets/bubble.mp3");
+                        Get.toNamed(Routes.SIGNUP);
+                      },
+                      text: 'Create new account',
+                      borderRadiusCircular: 50,
+                      width: 80.9.h,
+                      height: 4.4.h,
+                      fontSize: 16.sp,
+                      fontType: 'Montaga',
+                      fontWeight: '400',
+                      lineHeight: 19.71,
+                      borderColor: Themes.borderButtonColor,
+                      fontColor: Themes.darkGreenColor,
+                      buttonColor: Themes.createNewAccountButtonColor,
+                      hasColor: true)
+                      .animate()
+                      .shimmer(duration: const Duration(seconds: 1))
+                      .slideX(),
+                ],
               ),
             ),
+          ),
+        ),
+      ),
     );
   }
 
   void onClickLogin() async {
     EasyLoading.show(status: 'Loading....', dismissOnTap: true);
-     controller.userLogin(email: controller.email, password: controller.password, phoneNumber: controller.mobileNumber);
-    if (controller.message=='Logged in successfully.') {
-      EasyLoading.showSuccess('Success');
-     // Get.offAllNamed(Routes.AUTHENTICATED);
-        buttonAudio("song_assets/tada.mp3");
-                                          Get.lazyPut(
-                                              () => SuccessController());
-                                          Get.bottomSheet(
-                                            backgroundColor:
-                                                Themes.backGroundDialogColor,
-                                            const SuccessBottomSheet(),
-                                          );
-    }  else {
-      EasyLoading.showError('Error',
-          duration: const Duration(seconds: 3), dismissOnTap: true);
+
+    bool loginSuccess = await controller.userLogin(
+      email: controller.email,
+      password: controller.password,
+      phoneNumber: controller.mobileNumber,
+    );
+
+    EasyLoading.dismiss(); // Dismiss the loading indicator
+
+    if (loginSuccess) {
+
+      buttonAudio("song_assets/tada.mp3");
+      Get.lazyPut(() => SuccessController());
+      Get.bottomSheet(
+        const SuccessBottomSheet(),
+        backgroundColor: Themes.backGroundDialogColor,
+      );
+    } else if(controller.statusCode==403){
+     controller.storage.save('email',controller.email);
+       Get.offAllNamed(Routes.AUTHENTICATED);
+
+    }else {
+
+      buttonAudio("song_assets/error1.mp3");
+      Get.defaultDialog(
+        backgroundColor:
+        Themes.backGroundDialogColor,
+        title: '',
+        content: const FulsDialog(),
+      );
       print("*********** Error here ************");
     }
   }
+
 }
