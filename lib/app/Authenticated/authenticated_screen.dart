@@ -9,6 +9,7 @@ import '../../core/components/custom_text.dart';
 import '../../core/components/custom_text_button.dart';
 import '../../core/functions/button_audio.dart';
 import '../../core/functions/get_device_type.dart';
+import '../../routes/app_routes.dart';
 import '../../theme/themes.dart';
 import '../LogIn/login_controller.dart';
 import '../Success/success_bottom_sheet.dart';
@@ -190,7 +191,7 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         width: 15.w,
                         height: 3.8.h,
                         child: CustomMontagaText(
-                            text: '66:66',
+                            text:'${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}',
                             size: 16.sp,
                             lineHeight: 2.42,
                             fontWeight: 'Cabin',
@@ -396,7 +397,7 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
                         width: 15.h,
                         height: 3.8.h,
                         child: CustomMontagaText(
-                            text: '03:33',
+                            text:'${DateTime.now().hour.toString()}:${DateTime.now().minute.toString()}',
                             size: 16.sp,
                             lineHeight: 2.42,
                             fontWeight: 'Cabin',
@@ -447,13 +448,14 @@ class AuthenticatedScreen extends GetView<AuthenticatedController> {
     if (verificationSuccess) {
       //login api call to save the token
 
-
-      buttonAudio("song_assets/tada.mp3");
-      Get.lazyPut(() => SuccessController());
-      Get.bottomSheet(
-        const SuccessBottomSheet(),
-        backgroundColor: Themes.backGroundDialogColor,
-      );
+      buttonAudio("song_assets/bubble.mp3");
+      Get.toNamed(Routes.LOGIN);
+      // buttonAudio("song_assets/tada.mp3");
+      // Get.lazyPut(() => SuccessController());
+      // Get.bottomSheet(
+      //   const SuccessBottomSheet(),
+      //   backgroundColor: Themes.backGroundDialogColor,
+      // );
     } else {
       EasyLoading.showError('Error',
           duration: const Duration(seconds: 3), dismissOnTap: true);
